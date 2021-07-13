@@ -26,14 +26,18 @@
 
 //1.Save クリックイベント
 
-const input = document.querySelector('input');
-const memopad = document.querySelector('h1');
-const textarea = document.querySelector('textarea');
-const save = document.querySelector('li#sv');
-const Clear = document.querySelector('li#clear');
+const title = document.querySelector('h1');
 const table = document.querySelector('table#list');
 
+const btns = {
+    save: document.querySelector('li#sv'),
+    clear: document.querySelector('li#clear')
+}
 
+const input = {
+    input: document.querySelector('input'),
+    textarea: document.querySelector('textarea')
+}
 //2.clear クリックイベント
 
 
