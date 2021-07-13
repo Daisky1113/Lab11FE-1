@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Stew {
+            constructor(props) {
+                this.ru = props.ru
+            }
+            cut() { }
+            roast() { }
+            boil() {
+                console.log(`${this.ru}を加えて煮込む`)
+            }
+        }
+
+        const whiteStew = new Stew({ ru: 'ホワイトシチューの元' })
+        const curry = new Stew({ ru: 'カレーの元' })
+        const beafStew = new Stew({ ru: 'ビーフシチューの元' })
+
+        whiteStew.boil()
+    </script>
+</body>
+
+</html>
