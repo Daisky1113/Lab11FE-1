@@ -41,11 +41,11 @@ const inputs = {
 //2.clear クリックイベント
 
 const get_input = () => inputs.input.value
-const set_text = text => {
-    inputs.textarea.value = text
+const insert_table = text => {
+    table.innerHTML = text
 }
 const honya = () => {
-    set_text(get_input)
+    set_text(get_input);
 }
 
 btns.save.addEventListener('click', honya)
