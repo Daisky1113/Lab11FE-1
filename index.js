@@ -14,6 +14,22 @@ const btns = {
     clear : document.getElementById('js_clear')
 }
 
+// 関数定義
+
+const getInputContent = function(){
+    return input.value;
+}
+
+const inputText = function(text){
+    text.value = text;
+}
+
+const saveEvent = function(){
+    btns.save.addEventListener('click', function(){
+        inputText();
+    })
+}
+
 //1.Save クリックイベント
 
 
