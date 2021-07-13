@@ -9,20 +9,28 @@
 
 <body>
     <header>
-        <h1>MemoPad</h1>
+        <h1 id="js-h1">MemoPad</h1>
     </header>
     <main>
-        <input type="text">
-        <textarea></textarea>
+        <input type="text" id="js-input">
+        <textarea id="js-textarea"></textarea>
         <ul>
-            <li>Save</li>
-            <li>Clear</li>
+            <li id="js-lis">Save</li>
+            <li id="js-lisc">Clear</li>
         </ul>
     </main>
-    <table id="list">
+    <table id="js-table">
         <!-- ここに追加データが挿入される -->
     </table>
     <script>
+
+//DOMの取得
+    var spanText = document.getElementById('js-h1');
+    var spanText = document.getElementById('js-input');
+    var spanText = document.getElementById('js-textarea');
+    var spanText = document.getElementById('js-lis');
+    var spanText = document.getElementById('js-lisc');
+    var spanText = document.getElementById('js-table');
 
 //1.Save クリックイベント
 
