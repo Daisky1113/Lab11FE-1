@@ -1,11 +1,18 @@
 console.log('hello');
 
 //DOMの取得
+
+const header ={
+    title : document.getElementById('title'),
+}
+
 const input = document.getElementById('js_input');
 const text = document.getElementById('js_text');
-const save = document.getElementById('js_save');
-const clear = document.getElementById('js_clear');
 
+const btns = {
+    save : document.getElementById('js_save'),
+    clear : document.getElementById('js_clear')
+}
 
 //1.Save クリックイベント
 
