@@ -15,8 +15,8 @@
         <input type="text">
         <textarea></textarea>
         <ul>
-            <li>Save</li>
-            <li>Clear</li>
+            <li id="sv">Save</li>
+            <li 9d="cl">Clear</li>
         </ul>
     </main>
     <table id="list">
@@ -26,9 +26,11 @@
 
 //1.Save クリックイベント
 
-
-
-
+const input = document.querySelector('input');
+const textarea = document.querySelector('textarea');
+const save = document.querySelector('li#sv');
+const Clear = document.querySelector('li#clear');
+const table = document.querySelector('table#list');
 
 
 //2.clear クリックイベント
