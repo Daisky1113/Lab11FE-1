@@ -28,14 +28,18 @@
     const title = document.getElementById("title");
     const main_input = document.getElementById("main-input");
     const main_textarea = document.getElementById("main-textarea");
-    const list_save = document.getElementById("list-save");
-    const list_clear = document.getElementById("list-clear");
     const list = document.getElementById("list");
 
 //1.Save クリックイベント
 
+const btn={
+        save:list_save = document.getElementById("list-save"),
+        clear:list_clear = document.getElementById("list-clear")
+}
 
-
+const n=$('#list-save').click(function () {
+       localStorage.setItem().val();
+    })
 
 
 
