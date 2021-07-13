@@ -9,7 +9,7 @@
 
 <body>
     <header>
-        <h1>MemoPad</h1>
+        <h1 id="ttl">MemoPad</h1>
     </header>
     <main>
         <input id="js_input" type="text">
@@ -25,12 +25,18 @@
     <script>
 
 //DOM君の取得
+const $Ttl = document.getElementById('js_ttl');
 const $Text = document.getElementById('js_input');
 const $Text_area = document.getElementById('js_textarea');
-const $Save = document.getElementById('js_save');
-const $Clear = document.getElementById('js_clear');
+const $List = document.getElementById('list');
+// const $Save = document.getElementById('js_save');
+// const $Clear = document.getElementById('js_clear');
 
-console.log($Clear);
+
+const $Buttons = {
+    $Save   : document.getElementById('js_save'),
+    $Clear  : document.getElementById('js_clear')
+}
 
 //1.Save クリックイベント
 
