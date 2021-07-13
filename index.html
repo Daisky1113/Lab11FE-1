@@ -9,20 +9,29 @@
 
 <body>
     <header>
-        <h1>MemoPad</h1>
+        <h1 id="title">MemoPad</h1>
     </header>
     <main>
-        <input type="text">
-        <textarea></textarea>
+        <input type="text" id="input">
+        <textarea id="textarea"></textarea>
         <ul>
-            <li>Save</li>
-            <li>Clear</li>
+            <li id="save">Save</li>
+            <li id="clear">Clear</li>
         </ul>
     </main>
     <table id="list">
         <!-- ここに追加データが挿入される -->
     </table>
     <script>
+
+//
+const title = document.getElementById("title");
+const input = document.getElementById("input");
+const textarea = document.getElementById("textarea");
+const save = document.getElementById("save");
+const clear = document.getElementById("clear");
+const list = document.getElementById("list");
+
 
 //1.Save クリックイベント
 
