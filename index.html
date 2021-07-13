@@ -12,11 +12,11 @@
         <h1>MemoPad</h1>
     </header>
     <main>
-        <input type="text">
-        <textarea></textarea>
+        <input id="js-input"type="text">
+        <textarea id="js-textarea"></textarea>
         <ul>
-            <li>Save</li>
-            <li>Clear</li>
+            <li id="js-save">Save</li>
+            <li id="js-clear">Clear</li>
         </ul>
     </main>
     <table id="list">
@@ -24,6 +24,12 @@
     </table>
     <script>
 
+//DOM操作
+const input = document.getElementById('js-input');
+const textarea = document.getElementById('js-textarea');
+const save = document.getElementById('js-save');
+const clear = document.getElementById('js-clear');
+const list = document.getElementById('list');
 //1.Save クリックイベント
 
 
