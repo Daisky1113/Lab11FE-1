@@ -12,8 +12,8 @@
         <h1>MemoPad</h1>
     </header>
     <main>
-        <input type="text">
-        <textarea></textarea>
+        <input id="js-input" type="text">
+        <textarea id="js-textArea" name="js"></textarea>
         <ul>
             <li>Save</li>
             <li>Clear</li>
@@ -23,6 +23,10 @@
         <!-- ここに追加データが挿入される -->
     </table>
     <script>
+
+        // DOM取得
+        const input = document.getElementById('js-input');
+        const textArea = document.getElementById('js-textArea')
 
 //1.Save クリックイベント
 
