@@ -12,11 +12,11 @@
         <h1>MemoPad</h1>
     </header>
     <main>
-        <input type="text">
+        <input type="text" id="key">
         <textarea></textarea>
         <ul>
-            <li id="save">Save</li>
-            <li id="clear">Clear</li>
+            <li id="list-save">Save</li>
+            <li id="list-clear">Clear</li>
         </ul>
     </main>
     <table id="list">
@@ -24,10 +24,32 @@
     </table>
     <script>
 
+
+//DOM取得
+const title=document.getElementById("title");
+const main_input=document.getElementById("main-input");
+const main_textarea= document.getElementById()
+const list = document.getElementById("list");
+
+const btns={
+    save: document.getElementById("list-save"),
+    clear:document.getElementById("list-clear"),
+}
+
+
+// 関数定義
+const saveText=()=>{
+    return inputs.input.value
+}
+const clearText=()=>{
+    list.empty();
+}
+btns.save;
+btns.clear;
+
 //1.Save クリックイベント
 $("#save").on("click",function(){
-    const key = $(".text").val();
-
+    const key = $("#key").val();
         localStorage.setItem(key, value);
         const html='<tr><th>'+key+'</th><td>'+value+'</td></tr>';
         $("#list").append(html);
