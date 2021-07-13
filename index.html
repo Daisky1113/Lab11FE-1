@@ -9,14 +9,14 @@
 
 <body>
     <header>
-        <h1>MemoPad</h1>
+        <h1 id="title">MemoPad</h1>
     </header>
     <main>
-        <input type="text">
-        <textarea></textarea>
+        <input id="name" type="text">
+        <textarea id="description"></textarea>
         <ul>
-            <li>Save</li>
-            <li>Clear</li>
+            <li id="save">Save</li>
+            <li id="clear">Clear</li>
         </ul>
     </main>
     <table id="list">
@@ -24,7 +24,16 @@
     </table>
     <script>
 
+//DOM
+const title       = document.getElementById("title");
+const name    = document.getElementById("name");
+const description = document.getElementById("description");
+const save     = document.getElementById("save");
+const clear    = document.getElementById("clear");
+const list     = document.getElementById("list");
+
 //1.Save クリックイベント
+
 
 
 
