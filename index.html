@@ -25,12 +25,24 @@
     <script>
 
 //DOM
-const title       = document.getElementById("title");
-const name    = document.getElementById("name");
-const description = document.getElementById("description");
-const save     = document.getElementById("save");
-const clear    = document.getElementById("clear");
-const list     = document.getElementById("list");
+
+//まとめきれてないダメなパターン
+// const name        = document.getElementById("name");
+// const description = document.getElementById("description");
+// const save        = document.getElementById("save");
+// const clear       = document.getElementById("clear");
+
+//まとめれている良いパターン
+const btn = {
+    save  : document.getElementById("save"),
+    clear : document.getElementById("clear")
+}
+const input = {
+    name        : document.getElementById("name"),
+    description : document.getElementById("description")
+}
+const list = document.getElementById("list");
+const title = document.getElementById("title");
 
 //1.Save クリックイベント
 
