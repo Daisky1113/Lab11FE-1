@@ -31,7 +31,7 @@ const table = document.querySelector('table#list');
 
 const btns = {
     save: document.querySelector('li#sv'),
-    clear: document.querySelector('li#clear')
+    clear: document.querySelector('li#cl')
 }
 
 const inputs = {
@@ -40,7 +40,15 @@ const inputs = {
 }
 //2.clear クリックイベント
 
+const get_input = () => inputs.input.value
+const set_text = text => {
+    inputs.textarea.value = text
+}
+const honya = () => {
+    set_text(get_input)
+}
 
+btns.save.addEventListener('click', honya)
 
 
 
