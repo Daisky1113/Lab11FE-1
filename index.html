@@ -26,16 +26,27 @@
 
 //DOM取得
 //1.Save クリックイベント
-const body = document.getElementById('js-body');
-const header = document.getElementById('js-header');
-const h1 = document.getElementById('js-h1');
-const main = document.getElementById('js-main');
-const input = document.getElementById('js-input');
-const textArea = document.getElementById('js-textarea');
-const ul = document.getElementById('js-ul');
-const li1 = document.getElementById('js-li1');
-const li2 = document.getElementById('js-li2');
-const list = document.getElementById('js-list');
+const btns = {
+    save: document.getElementById('js-li1'),
+    clear: document.getElementById('js-li2'),
+};
+
+const inputArea = {
+    title: document.getElementById('js-input'),
+    body: document.getElementById('js-textarea'),
+}
+
+const display = {
+    list: document.getElementById('js-list'),
+    h1: document.getElementById('js-h1'),
+}
+
+const parts = {
+    body: document.getElementById('js-body'),
+    header:  document.getElementById('js-header'),
+    main:  document.getElementById('js-main'),
+    ul:  document.getElementById('js-ul'),
+}
 
 
 
