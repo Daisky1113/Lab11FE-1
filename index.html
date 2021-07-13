@@ -28,12 +28,18 @@
 const header   = document.getElementById('header');
 const h1       = document.getElementById('h1');
 const main     = document.getElementById('main');
-const input    = document.getElementById('input');
-const textarea = document.getElementById('textarea');
 const ul       = document.getElementById('ul');
-const li_save  = document.getElementById('li_save');
-const li_Clear = document.getElementById('li_Clear');
 const list     = document.getElementById('list');
+
+const main_contents = {
+  input:    document.getElementById('input'),
+  textarea:  document.getElementById('textarea')
+}
+
+const btns = {
+  save:  document.getElementById('li_save'),
+  clear:  document.getElementById('li_Clear')
+}
 
 //1.Save クリックイベント
 
