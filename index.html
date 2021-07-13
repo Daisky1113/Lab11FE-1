@@ -9,14 +9,14 @@
 
 <body>
     <header>
-        <h1>KIEEEEEEE</h1>
+        <h1>MemoPad</h1>
     </header>
     <main>
         <input type="text">
         <textarea></textarea>
         <ul>
-            <li>Save</li>
-            <li>Clear</li>
+            <li id="sv">Save</li>
+            <li 9d="cl">Clear</li>
         </ul>
     </main>
     <table id="list">
@@ -24,11 +24,40 @@
     </table>
     <script>
 
-//1.Save クリックイベント
+        //1.Save クリックイベント
 
+        const title = document.querySelector('h1');
+        const table = document.querySelector('table#list');
 
+        const btns = {
+            save: document.querySelector('li#sv'),
+            clear: document.querySelector('li#clear')
+        }
 
+        const inputs = {
+            input: document.querySelector('input'),
+            textarea: document.querySelector('textarea')
+        }
 
+        // 関数定義
+
+        // インプットから取得する関数
+        const getInputText = () => {
+            return inputs.input.value
+        }
+
+        // textArea に引数で渡ってきた文字列をセットする関数
+        const setText = text => {
+            inputs.textarea.value = text
+        }
+
+        // save btn のイベントハンドラ
+        const saveBtnHandler = () => {
+            setText(getInputText())
+        }
+
+        // save btn にコールバック関数をアタッチする
+        btns.save.addEventListener('click', saveBtnHandler)
 
 
 //2.clear クリックイベント
