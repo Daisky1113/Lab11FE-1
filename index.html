@@ -35,6 +35,23 @@ const btns = {
     save: document.getElementById('js-save'),
     clear: document.getElementById('js-clear'),
 }
+
+
+//関数定義
+const GetInputText = () =>{
+    return input.value
+}
+
+const setText = text =>{
+    input.value=text
+}
+
+const saveBtnhandler = () =>{
+    setText(GetInputText())
+}
+
+btns.save.addEventListener('click',saveBtnhandler)
+
 //1.Save クリックイベント
 
 
