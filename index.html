@@ -12,17 +12,25 @@
         <h1>MemoPad</h1>
     </header>
     <main>
-        <input type="text">
-        <textarea></textarea>
+        <input id="js_input" type="text">
+        <textarea id="js_textarea"></textarea>
         <ul>
-            <li>Save</li>
-            <li>Clear</li>
+            <li id="js_save">Save</li>
+            <li id="js_clear">Clear</li>
         </ul>
     </main>
     <table id="list">
         <!-- ここに追加データが挿入される -->
     </table>
     <script>
+
+//DOM君の取得
+const $Text = document.getElementById('js_input');
+const $Text_area = document.getElementById('js_textarea');
+const $Save = document.getElementById('js_save');
+const $Clear = document.getElementById('js_clear');
+
+console.log($Clear);
 
 //1.Save クリックイベント
 
