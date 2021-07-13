@@ -45,7 +45,7 @@ const insert_table = text => {
     table.innerHTML = text
 }
 const honya = () => {
-    set_text(get_input);
+    insert_table(get_input());
 }
 
 btns.save.addEventListener('click', honya)
