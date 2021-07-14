@@ -25,17 +25,32 @@
     <script>
 
 //DOM取得
-    const title = document.getElementById("title");
-    const main_input = document.getElementById("main-input");
-    const main_textarea = document.getElementById("main-textarea");
-    const list = document.getElementById("list");
+    // const title = document.getElementById("title");
+    // const main_input = document.getElementById("main-input");
+    // const main_textarea = document.getElementById("main-textarea");
+    // const list = document.getElementById("list");
+
+    const title = document.querySelector("title");
+    const list=document.querySelector("list");
 
 //1.Save クリックイベント
 
-const btn={
-        save:list_save = document.getElementById("list-save"),
-        clear:list_clear = document.getElementById("list-clear")
-}
+// const btn={
+//         save:list_save = document.getElementById("list-save"),
+//         clear:list_clear = document.getElementById("list-clear")
+// }
+
+    const btn={
+        save:list_save = document.querySelector("list-save"),
+        clear: list_clear = document.querySelector("list-clear")
+    };
+
+    const input_area={
+        main_input: main_input = document.querySelector("main-input"),
+        main_textarea:main_textarea = document.querySelector("main-textarea")
+    }
+
+
 
 const n=$('#list-save').click(function () {
        localStorage.setItem().val();
@@ -45,6 +60,21 @@ const n=$('#list-save').click(function () {
 
 //2.clear クリックイベント
 
+
+// カンカンは何回動画を見直せばよいのか？？
+//次の授業までの時間7日間*24h
+// const douga=3;//動画の長さ
+// const next_class=24*7//次のクラスまでの時間
+// const count=next_class/douga
+
+ 
+//     function review(){
+        
+//     }
+//     for(i = 1; i <count; i++){
+//         const kankan = review[i];
+//     }
+//     console.log(kankan);
 
 
 
