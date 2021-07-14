@@ -26,7 +26,6 @@
 
 //DOM取得
     const title = document.getElementById("title");
-    const main_textarea = document.getElementById("main-textarea");
     const list = document.getElementById("list");
 
 //btnのDOM取得
@@ -37,18 +36,36 @@ const btn = {
 
 const input = {
     main_input: document.getElementById("main-input"),
+    main_textarea: document.getElementById("main-textarea"),
 }
 
 
-//1.Save クリックイベント
+//inputのバリュー取得
+const getMainInput = () => input.main_input.value;
+//textareaのバリュー取得
+const getMainTextarea = () => input.main_textarea.value;
+
+//saveボタンの挙動
+const saveMainInput = () => {
+    list.innerHTML = getMainInput();
+    list.innerHTML = getMainTextarea();
+}
+
+//saveボタンのクリックアクション
+const saveBtn = btn.list_save;
+savebtn.addEventListener("click", () => saveMainInput());
 
 
 
+//clearボタンの挙動
+const clearMainInput = () => input.main_input.innerHTML ="";
+const clearMainTextarea = () => input.main_textarea.innerHTML ="";
 
-
-
-//2.clear クリックイベント
-
+const clearBtn = btn.list_clear;
+clearBtn.addEventListener("click", () => {
+    clearMainInput();
+    clearMainTextarea();
+})
 
 
 
