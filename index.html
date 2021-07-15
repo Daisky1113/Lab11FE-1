@@ -19,8 +19,13 @@
             <li id="list-clear">Clear</li>
         </ul>
     </main>
+    <div id="output">あああ</div>
     <table id="list">
         <!-- ここに追加データが挿入される -->
+        
+        
+        
+
     </table>
     <script>
 
@@ -30,8 +35,8 @@
     // const main_textarea = document.getElementById("main-textarea");
     // const list = document.getElementById("list");
 
-    const title = document.querySelector("title");
-    const list=document.querySelector("list");
+    const title = document.querySelector("#title");
+    const list=document.querySelector("#list");
 
 //1.Save クリックイベント
 
@@ -40,41 +45,97 @@
 //         clear:list_clear = document.getElementById("list-clear")
 // }
 
-    const btn={
-        save:list_save = document.querySelector("list-save"),
-        clear: list_clear = document.querySelector("list-clear")
+    const btns={
+        save:list_save = document.querySelector("#list-save"),
+        clear: list_clear = document.querySelector("#list-clear")
     };
 
     const input_area={
-        main_input: main_input = document.querySelector("main-input"),
-        main_textarea:main_textarea = document.querySelector("main-textarea")
+        main_input: main_input = document.querySelector("#main-input"),
+        main_textarea:main_textarea = document.querySelector("#main-textarea")
+    }
+
+    const output_area={
+        output:document.querySelector("#output")
     }
 
 
 
-const n=$('#list-save').click(function () {
-       localStorage.setItem().val();
-    })
+    // const n = $('#list-save').click(function () {
+    //     localStorage.setItem().val();
+    // })
+
+    // 従来の書き方
+    // btns.save.addEventlistener('click',function(){
+    //     const text= input_area.main_input.value
+    //     textarea.value=text
+    // })
 
 
 
+
+    const getInputText=()=>{
+        return input_area.main_input.value
+    }
+
+    const setText=text=>{
+        input_area.main_textarea.value=text
+    }
+
+    const saveBtnHandler=()=>{
+        setText(getInputText())
+    }
+
+
+
+    
+    const clearInputText=()=>{
+    input_area.main_input.value=''
+    }
+
+    const clearText = () => {
+    input_area.main_textarea.value = ''
+    }    
+
+    //インプットエリアの内容を取得する
+    // const getInputText = () => {
+    //     return input_area.main_input.value
+    // }
+
+    //ディブに値をいんなーHTMLに代入する
+    const add =syuturyoku=>{
+    output_area.output.innerHTML=syuturyoku;
+    }
+         
+    //getInputTextの返り値をadd関数に入れる
+    const aaa =(f1,f2)=>{
+        f1(f2())
+    }
+
+
+
+
+
+
+
+    const clearBtnHandler=()=>{
+        aaa(add,getInputText);
+        clearInputText();
+        clearText();
+        
+    }
+
+
+    
+
+
+
+    btns.save.addEventListener('click',saveBtnHandler);
+    btns.clear.addEventListener('click', clearBtnHandler);
+    // console.log(btns);
 //2.clear クリックイベント
 
 
-// カンカンは何回動画を見直せばよいのか？？
-//次の授業までの時間7日間*24h
-// const douga=3;//動画の長さ
-// const next_class=24*7//次のクラスまでの時間
-// const count=next_class/douga
-
- 
-//     function review(){
-        
-//     }
-//     for(i = 1; i <count; i++){
-//         const kankan = review[i];
-//     }
-//     console.log(kankan);
 
 
 
