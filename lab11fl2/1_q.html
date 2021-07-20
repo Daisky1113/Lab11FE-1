@@ -61,11 +61,11 @@
     // reduceリンク => https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
 
     // Q10: usersのidで最大の物を取得する
-    const maxId = users.sort((a, b) => b.id - a.id).slice(0,1)
+    const maxId = users.map(user => user.id).reduce((a, b) => a >= b ? a : b)
     console.log(maxId)
 
     // Q11: usersのidで最小の物を取得する
-    const minId = users.sort((a, b) => b.id - a.id).slice(-1)
+    const minId = users.map(user => user.id).reduce((a, b) => a <= b ? a : b)
     console.log(minId)
 
     // Q12: usersのidを全て合計する
