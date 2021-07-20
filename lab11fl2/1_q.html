@@ -11,6 +11,7 @@
 <body>
   <script type="module">
     import { users } from './data/users.js'
+
     console.log(users)
 
     // user : {
@@ -24,6 +25,14 @@
     // filterリンク => https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
 
     // Q1: usersの中からidが6の人のデータを取得する
+    // 今までの書き方
+    // for (let i = 0; i < users.length; i++) {
+    //   if (users[i].id === 6) {
+    //     console.log(users[i])
+    //   }
+    // }
+    // const id6user = users.filter(user => user.id === 6)
+    // console.log(id6user)
 
     // Q2: usersの中からidが13より後の人のデータだけ取得する
 
