@@ -24,11 +24,12 @@
     // filterリンク => https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
 
     // Q1: usersの中からidが6の人のデータを取得する
-
+        users.filter(user => user.id === 6)
     // Q2: usersの中からidが13より後の人のデータだけ取得する
-
+        const aaa = users.filter(user => user.id > 13)
+        console.log(aaa);
     // Q4: usersの中から名前に『口』（漢字のくち）がつく人のデータだけ取得する
-
+      
     // Q5: usersのデータからmailに.hogeが含まれるデータだけ取得する
 
     // Q6: usersのデータからmailに.fooが含まれないデータだけ取得する
