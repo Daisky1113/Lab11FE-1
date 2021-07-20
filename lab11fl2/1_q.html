@@ -35,14 +35,21 @@
     
     
     // Q6: usersのデータからmailに.fooが含まれないデータだけ取得する
-    console.log(users.filter(user=>user.email.indexOf('foo')<=-1))
+    console.log(users.filter(user=>user.email.indexOf('foo')===-1))
 
     // Q7: usersのデータにidが7の物があるかないか調べる
+    
 
     // sortに関する問題
     // sortリンク => https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 
     // Q8: usersのデータをidでみて降順（大きい順）に並び替える
+    // console.log(users.sort(user=>user.id))
+    // var numbers = users.filter(user=>user.id);
+    // numbers.sort(function (a, b) {
+    //     return a - b;
+    //   });
+    //   console.log(numbers)
 
     // Q9: usersのデータをidでみて昇順（小さい順）になるように並び替える
 
@@ -50,6 +57,13 @@
     // reduceリンク => https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
 
     // Q10: usersのidで最大の物を取得する
+    const type = 'id'
+    const a = users[type].reduce(function (accumulator, currentValue, currentIndex, array) {
+        return accumulator + currentValue
+      })
+     
+console.log(a)
+
 
     // Q11: usersのidで最小の物を取得する
 
