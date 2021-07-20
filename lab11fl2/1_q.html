@@ -26,8 +26,12 @@
     // Q1: usersの中からidが6の人のデータを取得する
 
     // Q2: usersの中からidが13より後の人のデータだけ取得する
+      const numOver13 = users.filter(num => num.id > 13);
+      console.log(numOver13);
 
     // Q4: usersの中から名前に『口』（漢字のくち）がつく人のデータだけ取得する
+      const hasWord = users.filter(num => num.name.includes('口'));
+      console.log(hasWord);
 
     // Q5: usersのデータからmailに.hogeが含まれるデータだけ取得する
 
