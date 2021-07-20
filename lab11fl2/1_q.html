@@ -26,12 +26,20 @@
     // Q1: usersの中からidが6の人のデータを取得する
 
     // Q2: usersの中からidが13より後の人のデータだけ取得する
+    const result = users.filter(users => users.id > 12);
+    console.log(result);
 
     // Q4: usersの中から名前に『口』（漢字のくち）がつく人のデータだけ取得する
+
+    const resultName = users.filter(users => users.name.indexOf('口') > -1);
+    console.log(resultName);
+
 
     // Q5: usersのデータからmailに.hogeが含まれるデータだけ取得する
 
     // Q6: usersのデータからmailに.fooが含まれないデータだけ取得する
+    const resultEmail = users.filter(users => users.email.indexOf('.foo') == -1);
+    console.log(resultEmail);
 
     // Q7: usersのデータにidが7の物があるかないか調べる
 
