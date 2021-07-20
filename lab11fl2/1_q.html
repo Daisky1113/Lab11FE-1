@@ -33,13 +33,17 @@
     // console.log((id13overuser))
 
     // Q4: usersの中から名前に『口』（漢字のくち）がつく人のデータだけ取得する
-    const mouse_user = users.filter(user => user.name.indexOf("口") > -1)
-    console.log((mouse_user))
+    // const mouse_user = users.filter(user => user.name.indexOf("口") > -1)
+    // console.log((mouse_user))
     // indexOfは-1だとなし、0以上だとあり
 
     // Q5: usersのデータからmailに.hogeが含まれるデータだけ取得する
+    // const hoge_user = users.filter(user => user.email.indexOf("hoge") > -1)
+    // console.log((hoge_user))
 
     // Q6: usersのデータからmailに.fooが含まれないデータだけ取得する
+    const nofoo_user = users.filter(user => user.email.indexOf("foo") < 0)
+    console.log((nofoo_user))
 
     // Q7: usersのデータにidが7の物があるかないか調べる
 
