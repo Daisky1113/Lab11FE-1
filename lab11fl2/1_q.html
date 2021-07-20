@@ -11,7 +11,7 @@
 <body>
   <script type="module">
     import { users } from './data/users.js'
-    console.log(users)
+    // console.log(users)
 
     // user : {
     //   id: Number,
@@ -29,10 +29,13 @@
     // console.log((id6user))
 
     // Q2: usersの中からidが13より後の人のデータだけ取得する
-    const id6overuser = users.filter(user => user.id > 6)
-    console.log((id6overuser))
+    // const id13overuser = users.filter(user => user.id > 13)
+    // console.log((id13overuser))
 
     // Q4: usersの中から名前に『口』（漢字のくち）がつく人のデータだけ取得する
+    const mouse_user = users.filter(user => user.name.indexOf("口") > -1)
+    console.log((mouse_user))
+    // indexOfは-1だとなし、0以上だとあり
 
     // Q5: usersのデータからmailに.hogeが含まれるデータだけ取得する
 
