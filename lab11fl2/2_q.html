@@ -31,6 +31,18 @@
     // }
 
     // Q1: 自分のブログで最もlikeCountの多いもののtitleは？
+    // 1.IDを引数で受け取って、ブログにデータを返す関数
+      const getBlogById = (arr, id, type) => arr.filter(user => user.id === id)[0][type]
+      
+      console.log(getBlogById(users, 19, 'blogs'))
+    
+    // 2.ブログの中でlikeCountが最大のものを返す
+      const getMostLikeBlog = blogs => Math.max(...blogs.likeCount)
+
+      // console.log(getMostLikeBlog(getBlogById(users, 19, 'blogs'))
+
+      // console.log(getMostLikeBlogs(getBlogById(users, 19, 'blogs')))
+
 
     // Q2: 自分のブログで非公開になっているものの中の最大のlikeCountは？そのタイトルは？
 
