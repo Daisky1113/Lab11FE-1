@@ -31,12 +31,24 @@
     console.log(over13Users)
 
     // Q4: usersの中から名前に『口』（漢字のくち）がつく人のデータだけ取得する
+    const getUserfromTypeAndStr = (arr, type, str) => {
+      return arr.filter(el => el[type].indexOf(str) !== -1)
+    }
+
     const inMouseUsers = users.filter(user => user.name.indexOf('口') !== -1)
     console.log(inMouseUsers)
 
+    const inMouseUsers2 = getUserfromTypeAndStr(users, 'name', '口')
+    console.log(inMouseUsers2)
+    
+
     // Q5: usersのデータからmailに.hogeが含まれるデータだけ取得する
+
     const inhogeUsers = users.filter(user => user.email.indexOf('.hoge') !== -1)
     console.log(inhogeUsers)
+
+    const inhogeUsers2 = getUserfromTypeAndStr(users, 'email', '.hoge')
+    console.log(inhogeUsers2)
 
     // Q6: usersのデータからmailに.fooが含まれないデータだけ取得する
     const nofooUsers = users.filter(user => user.email.indexOf('.foo') === -1)
