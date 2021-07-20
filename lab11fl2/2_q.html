@@ -37,7 +37,8 @@
       console.log(getBlogById(users, 19, 'blogs'))
     
     // 2.ブログの中でlikeCountが最大のものを返す
-      const getMostLikeBlog = blogs => Math.max(...blogs.likeCount)
+      const getMostLikeBlog = blogs => Math.max(...blogs.map(x => x.likeCount))
+      console.log(getMostLikeBlog(getBlogById(users, 19, 'blogs')))
 
       // console.log(getMostLikeBlog(getBlogById(users, 19, 'blogs'))
 
