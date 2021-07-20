@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script type="module">
+    import { users } from './data/users.js'
+    console.log(users)
+
+    // filterに関する問題　
+    // filterリンク => https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+
+    // Q1: usersの中からidが6の人のデータを取得する
+    // A1:
+    // 普通の方法
+    // const getUserById = id => {
+    //   for (let i = 0; i < users.length; i++) {
+    //     const user = users[i]
+    //     if (user.id === id) {
+    //       return user
+    //     }
+    //   }
+    // }
+    // console.log(getUserById(6))
+
+    // filterを使う方法
+    // const user = users.filter(user => user.id === 6)[0]
+
+    // findを使う方法
+    // const user = users.find(user => user.id == 6)
+    // console.log(user)
+
+    // 関数でラップする
+    // const getUserById = (users, id) => users.find(user => user.id == id)
+    // const user = getUserById(users, 6)
+    // console.log(user)
+
+
+    // Q2: usersの中からidが13より後の人のデータだけ取得する
+    // A2:
+    // const graterUsers = users.filter(user => user.id > 13)
+    // 関数でラップする
+    // const getUserByGrater = (users, sep) => {
+    // return users.filter(user => user.id > sep)
+    // }
+    // const graterUsers = getUserByGrater(users, 13)
+    // console.log(graterUsers)
+
+
+    // Q4: usersの中から名前に『口』（漢字のくち）がつく人のデータだけ取得する
+    // A4:
+    // const kutiUsers = users.filter(user => user.name.indexOf('口') > -1)
+    // console.log(kutiUsers)
+
+    // 関数でラップする
+    // const getUserByUserName = (users, userName) => {
+    //   return users.filter(user => user.name.indexOf(userName) > -1)
+    // }
+
+    // const selectedUser = getUserByUserName(users, '口')
+    // console.log(selectedUser)
+
+
+    // Q5: usersのデータからmailに.hogeが含まれるデータだけ取得する
+    // A5:
+    // const hogeUsers = users.filter(user => user.email.indexOf('.hoge') > -1)
+    // console.log(hogeUsers)
+    // kansu
+
+    // Q6: usersのデータからmailに.fooが含まれないデータだけ取得する
+    // A6:
+    // const excludeUsers = users.filter(user => user.email.indexOf('.foo') === -1)
+    // console.log(excludeUsers)
+    // 関数でラップする
+    // const getExcludeUsers = (users, target, excludeWord) => {
+    //   return users.filter(user => user[target].indexOf(excludeWord) === -1)
+    // }
+
+    // const excludeUsers = getExcludeUsers(users, 'email', '.hoge')
+    // console.log(excludeUsers)
+
+    // Q7: usersのデータにidが7の物があるかないか調べる (真偽値を返す)
+    // filterを使うパターン
+    // const isId7user = users.filter(user => user.id == 3).length === 0 ? false : true
+
+    // mapとincludesを組み合わせるパターン
+    // const isId7User = users.map(user => user.id).includes(3)
+
+    // 関数でラップする
+    // const isUserByTargetAndValue = (users, target, value) => {
+    //   const targetUsers = users.filter(user => user[target] === value)
+    //   return targetUsers.length != 0 ? true : false
+    // }
+    // const isId7User = isUserByTargetAndValue(users, 'id', 3)
+    // console.log(isId7User)
+
+    // 関数を分割する
+    // const getUserByTargetAndValue = (users, target, value) => {
+    //   return users.filter(user => user[target] === value)
+    // }
+
+    // const isUser = users => users.length != 0 ? true : false
+
+    // const id7users = getUserByTargetAndValue(users, 'id', 7)
+    // const isId7User = isUser(id7users)
+
+    // // ちなみにfalseの状態が正しい場合は関数を別にする
+    // const isntUser = users => {
+    //   return !isUser(users)
+    // }
+
+    // const isntId7User = isntUser(id7users)
+
+    // console.log(isntId7User)
+
+
+    // sortに関する問題
+    // sortリンク => https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+
+    // Q8: usersのデータをidでみて降順（大きい順）に並び替える
+
+    // const sorteadUserByDESC = users.sort((user1, user2) => user1.id > user2.id ? -1 : 1)
+    // console.log(sorteadUserByDESC)
+    // // Q9: usersのデータをidでみて昇順（小さい順）になるように並び替える
+    // const sorteadUserByASC = users.sort((user1, user2) => user1.id < user2.id ? -1 : 1)
+    // console.log(sorteadUserByASC)
+
+    // 参照渡しの説明
+    // 破壊的なメソッドと非破壊的なメソッド
+    // 破壊的 => Array.prototype.sort
+    // 非破壊 => Array.prototype.slice (コピーに対する操作)
+    // 関数化
+
+    // desc
+    // const getUsersByPropAndDESC = (users, prop) => {
+    //   return users.slice().sort((user1, user2) => user1[prop] > user2[prop] ? -1 : 1)
+    // }
+
+    // // asc
+    // const getUsersByPropAndASC = (users, prop) => {
+    //   return getUsersByPropAndDESC(users, prop).reverse()
+    // }
+
+
+    // // 合体
+    // // @param users : Array
+    // // @param prop: String type of users
+    // // @param order: String ('DESC' or 'ASC')
+    // // @return users
+    // const getSortedUsersByPropAndOrder = (users, prop, order) => {
+    //   switch (order) {
+    //     case 'DESC':
+    //       return getUsersByPropAndDESC(users, prop)
+    //     case 'ASC':
+    //       return getUsersByPropAndASC(users, prop)
+    //     default:
+    //       break
+    //   }
+    // }
+
+    // const descUsersById = getSortedUsersByPropAndOrder(users, 'id', 'DESC')
+    // const ascUsersById = getSortedUsersByPropAndOrder(users, 'id', 'ASC')
+
+    // console.log(descUsersById)
+    // console.log(ascUsersById)
+
+    // const descUsersByEmail = getSortedUsersByPropAndOrder(users, 'email', 'DESC')
+    // const ascUsersByEmail = getSortedUsersByPropAndOrder(users, 'email', 'ASC')
+
+    // console.log(descUsersByEmail)
+    // console.log(ascUsersByEmail)
+
+
+    // reduceに関する問題
+    // reduceリンク => https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+
+    // Q10: usersのidで最大の物を取得する
+
+    // sortを使う場合
+    // const max = users.sort((user1, user2) => user1.id > user2.id ? -1 : 1)[0]
+
+    // mapを使う場合
+    // Math.max
+    // スプレッド演算子
+    // const max = Math.max(...users.map(user => user.id))
+    // console.log(max)
+
+    // reduceを使う場合
+    // const max = users.reduce((a, b) => b.id > a ? a = b.id : a, 0)
+
+    // console.log(max)
+    // Q11: usersのidで最小の物を取得する
+
+    // Q12: usersのidを全て合計する
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>
