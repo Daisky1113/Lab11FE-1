@@ -35,8 +35,30 @@
     // console.log(id6user)
 
     // Q2: usersの中からidが13より後の人のデータだけ取得する
+    // const graterUsers = []
+    // for (let i = 0; i < users.length; i++) {
+    //   if (users[i].id > 13) {
+    //     graterUsers.push(users[i])
+    //   }
+    // }
+
+    // console.log(graterUsers)
+    const graterUsers = users.filter(user => user.id > 13)
+    console.log(graterUsers)
 
     // Q4: usersの中から名前に『口』（漢字のくち）がつく人のデータだけ取得する
+    // const kutiUsers = users.filter(user => user.name.indexOf('口') > -1)
+    // console.log(kutiUsers)
+
+    const getUserByTypeAndValue = (users, type, value) => {
+      return users.filter(user => user[type].indexOf(value) > -1)
+    }
+
+    const kutiUsers = getUserByTypeAndValue(users, 'name', '口')
+    const hogeUsers = getUserByTypeAndValue(users, 'email', '.hoge')
+
+    console.log(kutiUsers)
+    console.log(hogeUsers)
 
     // Q5: usersのデータからmailに.hogeが含まれるデータだけ取得する
 
