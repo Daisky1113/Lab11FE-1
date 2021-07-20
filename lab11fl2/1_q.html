@@ -31,6 +31,13 @@
     // Q4: usersの中から名前に『口』（漢字のくち）がつく人のデータだけ取得する
       const kuchi_user   = users.filter(user => user.name.indexOf("口") == 1)
       console.log(kuchi_user)
+
+    // 関数宣言
+    const arrayCheck = (array, keyName, keyword) => {
+      const arrayCheck = array.filter(ele => ele[keyName].indexOf(keyword) == 1)
+      console.log(arrayCheck)
+    }
+      arrayCheck(users, "name", "口")
     // Q5: usersのデータからmailに.hogeが含まれるデータだけ取得する
       const hogeMail     = users.filter(user => user.email.indexOf(".hoge") > -1)
       console.log(hogeMail)
@@ -38,8 +45,9 @@
       const notFooMail   = users.filter(user => user.email.indexOf(".foo") == -1)
       console.log(notFooMail)
     // Q7: usersのデータにidが7の物があるかないか調べる
-      const ckIDSeven    = users.filter(user => String(user.id).indexOf("7") > -1)
+      const ckIDSeven    = users.filter(user => String(user.id).indexOf("7") > -1).length != 0 ? "Yse" : "No"
       console.log(ckIDSeven)
+
     // sortに関する問題
     // sortリンク => https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 
