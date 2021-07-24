@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script type="module">
+    import { users } from './data/blogs.js'
+    console.log(users)
+
+    // user : {
+    //   id: Number,
+    //   name: String,
+    //   email: String,
+    //   blogs: BlogArray,
+    //   comments: Array
+    // }
+
+    // blog: {
+    //   id: Number,
+    //   likeCount: Number,
+    //   publish: Bool,
+    //   title: String,
+    //   tags: Array,
+    //   comments: Array,
+    // }
+
+    // Q1: 自分のブログで最もlikeCountの多いもののtitleは？ -------------------------------------------------------------
+
+    // const getBlogsByUserId = userId => {
+    //   return users.filter(user => user.id === userId)[0].blogs
+    // }
+
+    // const getMostLikedBlog = blogs => blogs.slice().sort((a, b) => a.likeCount > b.likeCount ? -1 : 1)[0]
+
+    // const blogs = getBlogsByUserId(19)
+    // const mostLikedBlog = getMostLikedBlog(blogs)
+    // console.log(mostLikedBlog)
+    // ----------------------------------------------------------------------------------------------------------
+
+
+
+    // Q2: 自分のブログで非公開になっているものの中の最大のlikeCountは？そのタイトルは？------------------------------------------
+
+    // const getBlogsByUserId = userId => users.find(user => user.id === userId).blogs
+    // const getPrivateBlogs = blogs => blogs.filter(blog => blog.publish === false)
+    // const getMostLikedBlog = blogs => blogs.sort((a, b) => a.likeCount > b.likeCount ? -1 : 1)[0]
+    // const getBlogLikeCount = blog => blog.likeCount
+    // const getBlogTitle = blog => blog.title
+    // const blogs = getBlogsByUserId(19)
+    // const privateBlogs = getPrivateBlogs(blogs)
+    // const mostLikedBlog = getMostLikedBlog(privateBlogs)
+    // const likeCount = getBlogLikeCount(mostLikedBlog)
+    // const title = getBlogTitle(mostLikedBlog)
+
+    // console.log(mostLikedBlog)
+    // console.log(title)
+    // console.log(likeCount)
+
+    //--------------------------------------------------------------------------------------------------------
+
+
+
+    // Q3: 自分のブログの公開率は？---------------------------------------------------------------------------------
+
+    // const getBlogsByUserId = userId => users.find(user => user.id === userId).blogs
+    // const getBlogsOnPublicCount = blogs => blogs.reduce((acc, blog) => blog.publish === true ? acc + 1 : acc, 0)
+    // const getBlogsOnPrivateCount = blogs => blogs.reduce((acc, blog) => blog.publish === false ? acc + 1 : acc, 0)
+    // const getBlogsRate = (total, count) => count / total
+    // const blogs = getBlogsByUserId(19)
+    // const publicCount = getBlogsOnPublicCount(blogs)
+    // const privateCount = getBlogsOnPrivateCount(blogs)
+    // const totalBlogCount = publicCount + privateCount
+    // const publicRate = getBlogsRate(totalBlogCount, publicCount)
+    // const privateRate = getBlogsRate(totalBlogCount, privateCount)
+    // const getPercentageDisplay = num => (num * 100).toFixed(1) + '%'
+    // console.log(publicCount)
+    // console.log(privateCount)
+    // console.log(totalBlogCount)
+    // console.log(`public rate => ${getPercentageDisplay(publicRate)}`)
+    // console.log(`private rate => ${getPercentageDisplay(privateRate)}`)
+
+
+    //--------------------------------------------------------------------------------------------------------
+
+
+
+    // Q4: 自分のブログに最もついているタグは？、その個数は？--------------------------------------------------------------
+
+    // const getBlogsByUserId = userId => users.find(user => user.id === userId).blogs
+    // const getAllTagsInBlogs = blogs => blogs.map(blog => blog.tags).flat()
+    // const getTablaturedTags = tags => tags.reduce((acc, tag) => {
+    //   acc?.[tag] ? acc[tag]++ : acc[tag] = 1
+    //   return acc
+    // }, {})
+
+    // const getMostUsedTag = tags => Object.entries(tags).sort((tag1, tag2) => tag1[1] > tag2[1] ? -1 : 1)[0]
+
+    // const blogs = getBlogsByUserId(19)
+    // const tags = getAllTagsInBlogs(blogs)
+    // const tablaturedTags = getTablaturedTags(tags)
+    // const mostUsedTag = getMostUsedTag(tablaturedTags)
+
+
+    // console.log(blogs)
+    // console.log(tags)
+    // console.log(tablaturedTags)
+    // console.log(mostUsedTag)
+
+    //--------------------------------------------------------------------------------------------------------
+
+
+
+
+    // Q5: 全てのブログの中で最もLikeCountの多いもののタイトルは？-------------------------------------------------------
+
+    // const getAllBlogs = () => users.map(user => user.blogs).flat()
+    // const getMostLikedBlog = blogs => blogs.sort((a, b) => a.likeCount > b.likeCount ? -1 : 1)[0]
+    // const getTitle = blog => blog.title
+
+    // const allBlogs = getAllBlogs()
+    // const mostLikedBlog = getMostLikedBlog(allBlogs)
+    // const title = getTitle(mostLikedBlog)
+
+    // console.log(allBlogs)
+    // console.log(mostLikedBlog)
+    // console.log(title)
+
+    //--------------------------------------------------------------------------------------------------------
+
+
+
+    // Q6: 全てのユーザーの中でブログのLikeCountの合計が最も多いもののユーザー名は？-------------------------------------------
+
+    // const mlu = users.slice()
+    //   .map(user => {
+    //     user.totalLikeCount = user.blogs.reduce((a, blog) => {
+    //       a += blog.likeCount
+    //       return a
+    //     }, 0)
+    //     return user
+    //   })
+    //   .sort((a, b) => a.totalLikeCoun > b.totalLikeCoun ? - 1 : 1)[0]
+
+    // console.log(mlu)
+
+    //--------------------------------------------------------------------------------------------------------
+
+
+
+
+    // Q7: 最もLike率(記事数に対するLikeの数の割合)の高いユーザーは？-----------------------------------------------------
+
+    // const mlru = users.slice().map(user => {
+    //   const totalLikeCount = user.blogs.reduce((a, b) => a + b.likeCount, 0)
+    //   const totalBlogLength = user.blogs.length
+    //   user.likeRate = totalLikeCount / totalBlogLength
+    //   return user
+    // })
+    //   .sort((a, b) => a.likeRate > b.likeRate ? -1 : 1)[0]
+
+    // console.log(mlru)
+
+    //--------------------------------------------------------------------------------------------------------
+
+
+
+  </script>
+</body>
+
+</html>

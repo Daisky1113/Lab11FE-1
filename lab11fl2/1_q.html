@@ -11,6 +11,7 @@
 <body>
   <script type="module">
     import { users } from './data/users.js'
+
     console.log(users)
 
     // user : {
@@ -24,14 +25,39 @@
     // filterリンク => https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
 
     // Q1: usersの中からidが6の人のデータを取得する
+    // 今までの書き方
+    // for (let i = 0; i < users.length; i++) {
+    //   if (users[i].id === 6) {
+    //     console.log(users[i])
+    //   }
+    // }
+    // const id6user = users.filter(user => user.id === 6)
+    // console.log(id6user)
 
     // Q2: usersの中からidが13より後の人のデータだけ取得する
       const numOver13 = users.filter(num => num.id > 13);
       console.log(numOver13);
 
+    // console.log(graterUsers)
+    // const graterUsers = users.filter(user => user.id > 13)
+    // console.log(graterUsers)
+
     // Q4: usersの中から名前に『口』（漢字のくち）がつく人のデータだけ取得する
       const hasWord = users.filter(num => num.name.includes('口'));
       console.log(hasWord);
+
+    // const kutiUsers = users.filter(user => user.name.indexOf('口') > -1)
+    // console.log(kutiUsers)
+
+    // const getUserByTypeAndValue = (users, type, value) => {
+    //   return users.filter(user => user[type].indexOf(value) > -1)
+    // }
+
+    // const kutiUsers = getUserByTypeAndValue(users, 'name', '口')
+    // const hogeUsers = getUserByTypeAndValue(users, 'email', '.hoge')
+
+    // console.log(kutiUsers)
+    // console.log(hogeUsers)
 
     // Q5: usersのデータからmailに.hogeが含まれるデータだけ取得する
 
@@ -42,19 +68,63 @@
 
     // sortに関する問題
     // sortリンク => https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+    // 配列のメソッドは破壊的なものと非破壊的なものがある
 
     // Q8: usersのデータをidでみて降順（大きい順）に並び替える
+    // const descUsers = users
+    //   .slice()
+    //   .sort((user1, user2) => user1.id > user2.id ? -1 : 1)
 
+    // console.log(descUsers)
     // Q9: usersのデータをidでみて昇順（小さい順）になるように並び替える
 
     // reduceに関する問題
     // reduceリンク => https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
 
-    // Q10: usersのidで最大の物を取得する
+    // Q10: usersのidで最大の物を取得す
+
+    // 昔ながらのやりかた-----
+    // let max = 0
+    // for (let i = 0; i < users.length; i++) {
+    //   if (users[i].id > max) {
+    //     max = users[i].id
+    //   }
+    // }
+    // console.log(max)
+    //---------------------------------------------------------------
+
+    // birdのやり方----------------------
+    // const max = users
+    //   .sort((user1, user2) => user1.id > user2.id ? -1 : 1)[0].id
+    // console.log(max)
+    // --------------------------------
+
+    // Math.maxを使うやりかたーーーーーーーーーーー------------
+    // const max = Math.max(...users.map(user => user.id))
+    // console.log(max)
+    // ------------------------------------------------
+
+    // reduceを使うやり方---------------------------
+    // const max = users.reduce((a, b) => {
+    //   b.id > a && (a = b.id)
+    //   return a
+    // }, 0)
+    // console.log(max)
+    //---------------------------------------------
+
 
     // Q11: usersのidで最小の物を取得する
 
     // Q12: usersのidを全て合計する
+    // const sum = users.reduce((a, b, i) => {
+    //   console.log(i + 1 + '回目のループ')
+    //   console.log('a => ' + a)
+    //   console.log('b => ' + b.id)
+    //   console.log('----------------------------------')
+    //   return a + b.id
+    // }, 0)
+
+    // console.log(sum)
 
 
 
