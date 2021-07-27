@@ -11,6 +11,7 @@
 <body>
   <script type="module">
     import { users } from './data/users.js'
+
     console.log(users)
 
     // user : {
@@ -24,11 +25,34 @@
     // filterリンク => https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
 
     // Q1: usersの中からidが6の人のデータを取得する
+<<<<<<< HEAD
     const id6user = users.filter(user => user.id === 6)
     console.log(id6user)
     // Q2: usersの中からidが13より後の人のデータだけ取得する
     const over13Users = users.filter(user => user.id > 13)
     console.log(over13Users)
+=======
+    // 今までの書き方
+    // for (let i = 0; i < users.length; i++) {
+    //   if (users[i].id === 6) {
+    //     console.log(users[i])
+    //   }
+    // }
+    // const id6user = users.filter(user => user.id === 6)
+    // console.log(id6user)
+
+    // Q2: usersの中からidが13より後の人のデータだけ取得する
+    // const graterUsers = []
+    // for (let i = 0; i < users.length; i++) {
+    //   if (users[i].id > 13) {
+    //     graterUsers.push(users[i])
+    //   }
+    // }
+
+    // console.log(graterUsers)
+    // const graterUsers = users.filter(user => user.id > 13)
+    // console.log(graterUsers)
+>>>>>>> main
 
     // Q4: usersの中から名前に『口』（漢字のくち）がつく人のデータだけ取得する
     const getUserfromTypeAndStr = (arr, type, str) => {
@@ -42,6 +66,19 @@
     console.log(inMouseUsers2)
     
 
+    // const kutiUsers = users.filter(user => user.name.indexOf('口') > -1)
+    // console.log(kutiUsers)
+
+    // const getUserByTypeAndValue = (users, type, value) => {
+    //   return users.filter(user => user[type].indexOf(value) > -1)
+    // }
+
+    // const kutiUsers = getUserByTypeAndValue(users, 'name', '口')
+    // const hogeUsers = getUserByTypeAndValue(users, 'email', '.hoge')
+
+    // console.log(kutiUsers)
+    // console.log(hogeUsers)
+
     // Q5: usersのデータからmailに.hogeが含まれるデータだけ取得する
 
     const inhogeUsers = users.filter(user => user.email.indexOf('.hoge') !== -1)
@@ -51,8 +88,15 @@
     console.log(inhogeUsers2)
 
     // Q6: usersのデータからmailに.fooが含まれないデータだけ取得する
+<<<<<<< HEAD
     const nofooUsers = users.filter(user => user.email.indexOf('.foo') === -1)
     console.log(nofooUsers)
+=======
+    // const notFooUsers = users
+    //   .filter(user => user.email.indexOf('.foo') > -1 ? false : true)
+
+    // console.log(notFooUsers)
+>>>>>>> main
 
     // Q7: usersのデータにidが7の物があるかないか調べる
     const isId7Users = users.some(user => user.id === 7)
@@ -60,11 +104,19 @@
 
     // sortに関する問題
     // sortリンク => https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+    // 配列のメソッドは破壊的なものと非破壊的なものがある
 
     // Q8: usersのデータをidでみて降順（大きい順）に並び替える
+<<<<<<< HEAD
     const sortDecId = users.sort((a, b) => b.id - a.id)
     console.log(sortDecId)
+=======
+    // const descUsers = users
+    //   .slice()
+    //   .sort((user1, user2) => user1.id > user2.id ? -1 : 1)
+>>>>>>> main
 
+    // console.log(descUsers)
     // Q9: usersのデータをidでみて昇順（小さい順）になるように並び替える
     const sortAscId = users.sort((a, b) => a.id - b.id)
     console.log(sortDecId)
@@ -72,17 +124,63 @@
     // reduceに関する問題
     // reduceリンク => https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
 
+<<<<<<< HEAD
     // Q10: usersのidで最大の物を取得する
     const maxId = users.map(user => user.id).reduce((a, b) => a >= b ? a : b)
     console.log(maxId)
+=======
+    // Q10: usersのidで最大の物を取得す
+
+    // 昔ながらのやりかた-----
+    // let max = 0
+    // for (let i = 0; i < users.length; i++) {
+    //   if (users[i].id > max) {
+    //     max = users[i].id
+    //   }
+    // }
+    // console.log(max)
+    //---------------------------------------------------------------
+
+    // birdのやり方----------------------
+    // const max = users
+    //   .sort((user1, user2) => user1.id > user2.id ? -1 : 1)[0].id
+    // console.log(max)
+    // --------------------------------
+
+    // Math.maxを使うやりかたーーーーーーーーーーー------------
+    // const max = Math.max(...users.map(user => user.id))
+    // console.log(max)
+    // ------------------------------------------------
+
+    // reduceを使うやり方---------------------------
+    // const max = users.reduce((a, b) => {
+    //   b.id > a && (a = b.id)
+    //   return a
+    // }, 0)
+    // console.log(max)
+    //---------------------------------------------
+
+>>>>>>> main
 
     // Q11: usersのidで最小の物を取得する
     const minId = users.map(user => user.id).reduce((a, b) => a <= b ? a : b)
     console.log(minId)
 
     // Q12: usersのidを全て合計する
+<<<<<<< HEAD
     const sumId = users.map(user => user.id).reduce((a, b) => a + b)
     console.log(sumId)
+=======
+    // const sum = users.reduce((a, b, i) => {
+    //   console.log(i + 1 + '回目のループ')
+    //   console.log('a => ' + a)
+    //   console.log('b => ' + b.id)
+    //   console.log('----------------------------------')
+    //   return a + b.id
+    // }, 0)
+
+    // console.log(sum)
+>>>>>>> main
 
 
 

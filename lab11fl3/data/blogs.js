@@ -1,0 +1,15 @@
+export const blogs = [
+  { id: 1, likeCount: 393, published: true, title: "爬虫類は断る" },
+  { id: 2, likeCount: 905, published: true, title: "古細菌こそ見つめる" },
+  { id: 3, likeCount: 615, published: true, title: "真核生物それは起きる" },
+  { id: 4, likeCount: 214, published: true, title: "両生類と飾る" },
+  { id: 5, likeCount: 332, published: false, title: "魚類でさえ試みる" },
+  { id: 6, likeCount: 688, published: true, title: "魚類だが読む" },
+  { id: 7, likeCount: 835, published: true, title: "両生類は過ぎる" },
+  { id: 8, likeCount: 305, published: false, title: "古細菌でさえ食べる" },
+  { id: 9, likeCount: 703, published: true, title: "昆虫は騙す" },
+  { id: 10, likeCount: 321, published: true, title: "古細菌でさえ試みる" },
+  { id: 11, likeCount: 988, published: true, title: "魚類が揺れる" },
+  { id: 12, likeCount: 8, published: false, title: "哺乳類も誘う" },
+  { id: 13, likeCount: 47, published: true, title: "鳥類も終わる" },
+]
