@@ -35,7 +35,7 @@
             <div class="card-content">
               <template v-if="todoTask.isntUpdate">
                 <p class="is-size-3">{{ todoTask.title }}</p>
-                <button class="button is-small mt-2">done</button>
+                <button @click="changeDone(todoTask.id)" class="button is-small mt-2">done</button>
                 <button class="button is-small m-2">update</button>
                 <button class="button is-small m-2">delete</button>
               </template>
@@ -117,9 +117,11 @@
           this.tasks.push(task)
           this.clearTitle()
         },
-
         clearTitle() {
           this.taskTitle = ''
+        },
+        changeDone(id){
+          this.tasks.find(task => task.id === id).done = true
         }
       },
     }).mount('#app')
