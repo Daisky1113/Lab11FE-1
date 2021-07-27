@@ -56,7 +56,20 @@
       console.log(countPublic(getBlogById(users, 8, 'blogs')) / countBlogs(getBlogById(users, 8, 'blogs')))
 
     // Q4: 自分のブログに最もついているタグは？、その個数は？
-      // const 
+      // タグをとってくる
+      const getTag = blogs => [...blogs].map(x => x.tags).flat()
+      // オブジェクトにしてカウントする
+      const countTag = arr => arr.reduce((a,b) => {
+        !a[b] ? a[b] = 1 : a[b] += 1
+        return a
+      },{})
+      
+      
+      
+
+      console.log(getTag(getBlogById(users, 8, 'blogs')))
+      console.log(countTag(getTag(getBlogById(users, 8, 'blogs'))))
+      console.log()
     // Q5: 全てのブログの中で最もLikeCountの多いもののタイトルは？
 
     // Q6: 全てのブログの中で最もLikeCountの多いもののユーザー名は？
