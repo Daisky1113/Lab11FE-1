@@ -17,8 +17,8 @@
       <div class="card">
         <div class="card-content">
           <p>hoge</p>
-          <input type="text" class="input is-medium mt-6 mb-4">
-          <button class="button is-small is-primary mt-2">Create!</button>
+          <input v-model="taskTitle" type="text" class="input is-medium mt-6 mb-4">
+          <button @click="createTask" class="button is-small is-primary mt-2">Create!</button>
         </div>
       </div>
     </div>
@@ -31,10 +31,10 @@
           <p>Todo</p>
         </div>
         <div class="message-body">
-          <div class="card my-2">
+          <div v-for="todoTask in todoTasks" class="card my-2">
             <div class="card-content">
-              <template v-if="true">
-                <p class="is-size-3">foo</p>
+              <template v-if="todoTask.isntUpdate">
+                <p class="is-size-3">{{ todoTask.title }}</p>
                 <button class="button is-small mt-2">done</button>
                 <button class="button is-small m-2">update</button>
                 <button class="button is-small m-2">delete</button>
@@ -44,6 +44,7 @@
                 <button class="button is-small mt-2">update</button>
                 <button class="button is-small m-2">cancel</button>
               </template>
+
             </div>
           </div>
         </div>
@@ -58,10 +59,10 @@
           <p>Done</p>
         </div>
         <div class="message-body">
-          <div class="card my-2">
+          <div v-for="doneTask in doneTasks" class="card my-2">
             <div class="card-content">
               <template v-if="true">
-                <p class="is-size-3">bar</p>
+                <p class="is-size-3">{{ doneTask.title }}</p>
                 <button class="button is-small mt-2">UnDone</button>
                 <button class="button is-small m-2">update</button>
                 <button class="button is-small m-2">delete</button>
@@ -92,11 +93,35 @@
     window.vi = Vue.createApp({
       data() {
         return {
-          todos: [],
+          taskTitle: '',
+          tasks: [],
         }
       },
-      computed: {},
-      methods: {},
+      computed: {
+        todoTasks() {
+          return this.tasks.filter(task => task.done === false)
+        },
+
+        doneTasks() {
+          return this.tasks.filter(task => task.done === true)
+        }
+      },
+      methods: {
+        createTask() {
+          const task = {
+            id: 13,
+            title: this.taskTitle,
+            done: false,
+            isntUpdate: true,
+          }
+          this.tasks.push(task)
+          this.clearTitle()
+        },
+
+        clearTitle() {
+          this.taskTitle = ''
+        }
+      },
     }).mount('#app')
   </script>
 </body>
