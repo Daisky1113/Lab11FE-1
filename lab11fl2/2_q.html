@@ -40,17 +40,23 @@
       const getMostLikeBlog = blogs => Math.max(...blogs.map(x => x.likeCount))
       console.log(getMostLikeBlog(getBlogById(users, 19, 'blogs')))
 
-      // console.log(getMostLikeBlog(getBlogById(users, 19, 'blogs'))
-
-      // console.log(getMostLikeBlogs(getBlogById(users, 19, 'blogs')))
-
-
     // Q2: 自分のブログで非公開になっているものの中の最大のlikeCountは？そのタイトルは？
-
+      const getMostLikePrivate = blogs => Math.max(...blogs.map(x => x.publish ? 0 : x.likeCount))
+      const getTitleMostLikePrivate = blogs => [...blogs].map(x => [x.likeCount, x.title]).filter(y => y[0] == getMostLikePrivate(getBlogById(users, 8, 'blogs')))[0][1]
+      
+      console.log(getMostLikePrivate(getBlogById(users, 8, 'blogs')))
+      console.log(getTitleMostLikePrivate(getBlogById(users, 8, 'blogs')))
+      
     // Q3: 自分のブログの公開率は？
+      // 公開数
+      const countPublic = blogs => [...blogs].filter(x => x.publish).length
+      // 全部
+      const countBlogs = blogs => [...blogs].length
+
+      console.log(countPublic(getBlogById(users, 8, 'blogs')) / countBlogs(getBlogById(users, 8, 'blogs')))
 
     // Q4: 自分のブログに最もついているタグは？、その個数は？
-
+      // const 
     // Q5: 全てのブログの中で最もLikeCountの多いもののタイトルは？
 
     // Q6: 全てのブログの中で最もLikeCountの多いもののユーザー名は？
