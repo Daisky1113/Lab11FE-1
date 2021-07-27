@@ -21,10 +21,10 @@
           <div class="column">
             <article class="message">
               <div class="message-header">
-                <p>foo</p>
+                <p>{{ msg }}</p>
               </div>
               <div class="message-body">
-                bar
+                {{ msg2 }}
               </div>
             </article>
           </div>
@@ -44,7 +44,7 @@
           <aside class="menu">
             <ul class="menu-list">
               <li><a class="is-active">users</a></li>
-              <li><a>Daisky</a></li>
+              <li v-bind:id='user.id' v-for='user in users'><a>{{ user.name }}</a></li>
             </ul>
           </aside>
         </div>
@@ -70,11 +70,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th>1</th>
-                <td>hoge</td>
-                <td>0</td>
-                <td>true</td>
+              <tr v-for="blog in myPublishedBlogs">
+                <th>{{ blog.id }}</th>
+                <td>{{ blog.title }}</td>
+                <td>{{ blog.likeCount }}</td>
+                <td>{{ blog.published }}</td>
               </tr>
             </tbody>
           </table>
@@ -95,18 +95,18 @@
           <table class="table  is-fullwidth is-striped  is-hoverable">
             <thead>
               <tr>
-                <th>id</th>
+                <th></th>
                 <th>title</th>
                 <th>like count</th>
                 <th>publish？</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th>1</th>
-                <td>hoge</td>
-                <td>0</td>
-                <td><button class="button is-primary">Publish!</button></td>
+              <tr v-for="blog in myPrivateBlogs">
+                <th>{{ blog.id }}</th>
+                <td>{{ blog.title }}</td>
+                <td>{{ blog.likeCount }}</td>
+                <td><button class="button is-primary" v-on:click='publish(blog.id)'>Publish!</button></td>
               </tr>
             </tbody>
           </table>
@@ -124,8 +124,8 @@
           <h1 class="is-size-2">Q5: data() & v-model</h1>
           <p class="is-size-5 my-4">ブログを追加する</p>
           <div class="control">
-            <p class="is-size-1 mb-4">hogeee</p>
-            <input class="input mb-4" type="text" placeholder="ブログタイトルいれてね">
+            <p class="is-size-1 mb-4">{{ blogTitle }}</p>
+            <input v-model="blogTitle" class="input mb-4" type="text" placeholder="ブログタイトルいれてね">
             <button class="button ">追加</button>
           </div>
         </div>
@@ -144,12 +144,34 @@
     window.vi = Vue.createApp({
       data() {
         return {
-          users,
-          blogs,
+          users:users,
+          blogs:blogs,
+          msg: 'Hello Vue.js!',
+          msg2: '武器の貯蔵は充分か',
+          blogTitle:'',
         }
       },
-      computed: {},
-      methods: {},
+      computed: {
+        myPublishedBlogs(){
+          return this.blogs.filter(blog => blog.published === true)
+        },
+        myPrivateBlogs(){
+          return this.blogs.filter(blog => blog.published === false)
+        },
+
+        currentBoldId(){
+          return this.blogs.length
+        }
+
+      },
+      methods: {
+        publised(blogId){
+          this.blogs.find(blog => blog.id === blogId).publised = true
+        },
+        addBlog(){
+
+        }
+      },
     }).mount('#app')
   </script>
 </body>
