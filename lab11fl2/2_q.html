@@ -63,13 +63,16 @@
         !a[b] ? a[b] = 1 : a[b] += 1
         return a
       },{})
+
+      const tagObject = countTag(getTag(getBlogById(users, 8, 'blogs')))
       
+      const getMaxTags = (tags) => Object.entries(tags).sort((tag1, tag2) => tag1[1] > tag2[1] ? -1 : 1)[0]
       
       
 
       console.log(getTag(getBlogById(users, 8, 'blogs')))
       console.log(countTag(getTag(getBlogById(users, 8, 'blogs'))))
-      console.log()
+      console.log(getMaxTags(tagObject))
     // Q5: 全てのブログの中で最もLikeCountの多いもののタイトルは？
 
     // Q6: 全てのブログの中で最もLikeCountの多いもののユーザー名は？
