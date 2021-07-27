@@ -11,7 +11,7 @@
 <body>
   <script type="module">
     import { users } from './data/blogs.js'
-    console.log(users)
+    // console.log(users)
 
     // user : {
     //   id: Number,
@@ -31,14 +31,44 @@
     // }
 
     // Q1: 自分のブログで最もlikeCountの多いもののtitleは？
+    const mostLike      = users.map(user=>user.blogs.map(x=>x.likeCount))
+    const mostLikeTitle = Math.max(...mostLike[0])
+    // console.log(mostLikeTitle)
+
 
     // Q2: 自分のブログで非公開になっているものの中の最大のlikeCountは？そのタイトルは？
+      const myblog = users.filter(x => x.name.indexOf('白')>-1)
+      // console.log (myblog)
+      const unPubished = myblog.map(x=>x.blogs.filter(x=>x.publish==false).map(x=>x.likeCount))
+      // console.log(unPubished)
+
+      const unPubishedLike = Math.max(...unPubished[0])
+      console.log(unPubishedLike)
+      // 動作確認用
+      // let unPubishedLike2 = myblog.map(x => x.blogs.filter(x=>x.likeCount>100))
+      // console.log(unPubishedLike2)
+
 
     // Q3: 自分のブログの公開率は？
+    const myPublishBlogNum  = myblog.map(x=>x.blogs.filter(x=>x.publish==true))[0].length;
+    // console.log(myPublishBlogNum)
+    const myAllBlogNum      = myblog.map(x=>x.blogs)[0].length
+    // console.log(myAllBlogNum)
+    const myBlogPublishRate = Math.floor((myPublishBlogNum/myAllBlogNum)*100)
+    console.log(myBlogPublishRate)
+
 
     // Q4: 自分のブログに最もついているタグは？、その個数は？
+    // console.log(myblog)
+    const tags = myblog.map(x=>x.blogs.map(x=>x.tags))
+    
+    console.log(tags)
+
 
     // Q5: 全てのブログの中で最もLikeCountの多いもののタイトルは？
+
+
+
 
     // Q6: 全てのブログの中で最もLikeCountの多いもののユーザー名は？
 
