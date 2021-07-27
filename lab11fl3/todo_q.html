@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<div id="app" class="container pt-6">
+  <!------------------------------------------------------------------------ -->
+  <!-- 作成エリア -->
+  <!------------------------------------------------------------------------ -->
+  <div class="columns">
+    <div class="column">
+      <div class="card">
+        <div class="card-content">
+          <p>hoge</p>
+          <input type="text" class="input is-medium mt-6 mb-4">
+          <button class="button is-small is-primary mt-2">Create!</button>
+        </div>
+      </div>
+    </div>
+    <!------------------------------------------------------------------------ -->
+    <!-- Todoエリア -->
+    <!------------------------------------------------------------------------ -->
+    <div class="column">
+      <article class="message">
+        <div class="message-header">
+          <p>Todo</p>
+        </div>
+        <div class="message-body">
+          <div class="card my-2">
+            <div class="card-content">
+              <template v-if="true">
+                <p class="is-size-3">foo</p>
+                <button class="button is-small mt-2">done</button>
+                <button class="button is-small m-2">update</button>
+                <button class="button is-small m-2">delete</button>
+              </template>
+              <template v-else>
+                <input type="text" class="input is-medium">
+                <button class="button is-small mt-2">update</button>
+                <button class="button is-small m-2">cancel</button>
+              </template>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+    <!------------------------------------------------------------------------ -->
+    <!-- Doneエリア -->
+    <!------------------------------------------------------------------------ -->
+    <div class="column">
+      <article class="message is-success">
+        <div class="message-header">
+          <p>Done</p>
+        </div>
+        <div class="message-body">
+          <div class="card my-2">
+            <div class="card-content">
+              <template v-if="true">
+                <p class="is-size-3">bar</p>
+                <button class="button is-small mt-2">UnDone</button>
+                <button class="button is-small m-2">update</button>
+                <button class="button is-small m-2">delete</button>
+              </template>
+              <template v-else>
+                <input type="text" class="input is-medium">
+                <button class="button is-small mt-2">update</button>
+                <button class="button is-small m-2">cancel</button>
+              </template>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</div>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script>
+
+    // todoのデータ型
+    // id: Number
+    // title: String
+    // done: Boolean
+    // isUpdate: Boolean
+
+    window.vi = Vue.createApp({
+      data() {
+        return {
+          todos: [],
+        }
+      },
+      computed: {},
+      methods: {},
+    }).mount('#app')
+  </script>
+</body>
+
+</html>

@@ -12,11 +12,11 @@
         <h1 id="title">MemoPad</h1>
     </header>
     <main>
-        <input id="name" type="text">
-        <textarea id="description"></textarea>
+        <input id="main-input" type="text">
+        <textarea id="main-textarea"></textarea>
         <ul>
-            <li id="save">Save</li>
-            <li id="clear">Clear</li>
+            <li id="list-save">Save</li>
+            <li id="list-clear">Clear</li>
         </ul>
     </main>
     <table id="list">
@@ -24,38 +24,13 @@
     </table>
     <script>
 
-//DOM
-
-//まとめきれてないダメなパターン
-// const name        = document.getElementById("name");
-// const description = document.getElementById("description");
-// const save        = document.getElementById("save");
-// const clear       = document.getElementById("clear");
-
-//まとめれている良いパターン
-const btn = {
-    save  : document.getElementById("save"),
-    clear : document.getElementById("clear")
-}
-const input = {
-    name        : document.getElementById("name"),
-    description : document.getElementById("description")
-}
-const list = document.getElementById("list");
-const title = document.getElementById("title");
-
-//inputを返すイベント
-const text = () =>{
-    const text = input.name.value
-}
-const text_des = text => {
-    input.description.value = text
-}
-const return_text = () => {
-    text_des(text)
-}
-
-
+//DOM取得
+    const title = document.getElementById("title");
+    const main_input = document.getElementById("main-input");
+    const main_textarea = document.getElementById("main-textarea");
+    const list_save = document.getElementById("list-save");
+    const list_clear = document.getElementById("list-clear");
+    const list = document.getElementById("list");
 
 //1.Save クリックイベント
 
