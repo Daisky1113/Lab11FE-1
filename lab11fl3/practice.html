@@ -21,10 +21,10 @@
           <div class="column">
             <article class="message">
               <div class="message-header">
-                <p>foo</p>
+                <p>{{ msg }}</p>
               </div>
               <div class="message-body">
-                bar
+                {{msg2}}
               </div>
             </article>
           </div>
@@ -44,7 +44,8 @@
           <aside class="menu">
             <ul class="menu-list">
               <li><a class="is-active">users</a></li>
-              <li><a>Daisky</a></li>
+              <!-- :id="user.id"はv-bind:id="user.id"の省略形 -->
+              <li :id="user.id" v-for="user in users"><a>{{user.name}}</a></li>
             </ul>
           </aside>
         </div>
@@ -70,10 +71,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th>1</th>
-                <td>hoge</td>
-                <td>0</td>
+              <tr v-for="blog in publishedBlogs">
+                <th>{{blog.id}}</th>
+                <td>{{blog.title}}</td>
+                <td>{{ blog.likeCount }}</td>
                 <td>true</td>
               </tr>
             </tbody>
@@ -102,11 +103,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th>1</th>
-                <td>hoge</td>
-                <td>0</td>
-                <td><button class="button is-primary">Publish!</button></td>
+              <tr v-for="blog in privateBlogs">
+                <th>{{ blog.id }}</th>
+                <td>{{ blog.title }}</td>
+                <td>{{ blog.likeCount }}</td>
+                <td>
+                  <button v-on:click="published(blog.id)" class="button is-primary">Publish!</button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -124,8 +127,8 @@
           <h1 class="is-size-2">Q5: data() & v-model</h1>
           <p class="is-size-5 my-4">ブログを追加する</p>
           <div class="control">
-            <p class="is-size-1 mb-4">hogeee</p>
-            <input class="input mb-4" type="text" placeholder="ブログタイトルいれてね">
+            <p class="is-size-1 mb-4">{{ blogTitle }}</p>
+            <input v-model="blogTitle" class="input mb-4" type="text" placeholder="ブログタイトルいれてね">
             <button class="button ">追加</button>
           </div>
         </div>
@@ -146,10 +149,32 @@
         return {
           users,
           blogs,
+          msg:  "Hello Vue.js",
+          msg2: "武器の貯蔵はOk"
         }
       },
-      computed: {},
-      methods: {},
+      computed: {
+        publishedBlogs(){
+          //ブログの公開してもののみ
+          return this.blogs.filter(blogs => blogs.published === true)
+        },
+        privateBlogs(){
+          return this.blogs.filter(blogs => blogs.published === false)
+        }
+      },
+      methods: {
+        published(blogId){
+          this.blogs.find(blog => blog.id === blogId).published === true
+        },
+        addBlog(){
+          const blog = {
+            id        : Math.floor(Math.random() * 100),
+            title     : this.blogTitle,
+          }
+          this.blogs.push(blog)
+        }
+
+      },
     }).mount('#app')
   </script>
 </body>

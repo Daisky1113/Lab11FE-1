@@ -16,9 +16,9 @@
     <div class="column">
       <div class="card">
         <div class="card-content">
-          <p>hoge</p>
-          <input type="text" class="input is-medium mt-6 mb-4">
-          <button class="button is-small is-primary mt-2">Create!</button>
+          <p>入力</p>
+          <input v-model="todoTitle"  type="text" class="input is-medium mt-6 mb-4">
+          <button v-on:click="addTodo()" class="button is-small is-primary mt-2">Create!</button>
         </div>
       </div>
     </div>
@@ -31,13 +31,13 @@
           <p>Todo</p>
         </div>
         <div class="message-body">
-          <div class="card my-2">
+          <div v-for="todo in falseTodos" class="card my-2">
             <div class="card-content">
               <template v-if="true">
-                <p class="is-size-3">foo</p>
-                <button class="button is-small mt-2">done</button>
+                <p :id="todo.id" class="is-size-3">{{ todo.title }}</p>
+                <button v-on:click="changeTodo(todo.id)" class="button is-small mt-2">done</button>
                 <button class="button is-small m-2">update</button>
-                <button class="button is-small m-2">delete</button>
+                <button v-on:click="clearTodo(todo.id)" class="button is-small m-2">delete</button>
               </template>
               <template v-else>
                 <input type="text" class="input is-medium">
@@ -57,12 +57,12 @@
         <div class="message-header">
           <p>Done</p>
         </div>
-        <div class="message-body">
+        <div v-for="todo in trueTodos" class="message-body">
           <div class="card my-2">
             <div class="card-content">
               <template v-if="true">
-                <p class="is-size-3">bar</p>
-                <button class="button is-small mt-2">UnDone</button>
+                <p :id="todo.id" class="is-size-3">{{ todo.title }}</p>
+                <button v-on:click="changeTodo(todo.id)" class="button is-small mt-2">UnDone</button>
                 <button class="button is-small m-2">update</button>
                 <button class="button is-small m-2">delete</button>
               </template>
@@ -89,14 +89,61 @@
     // done: Boolean
     // isUpdate: Boolean
 
+    const todo = {
+      id: Number,
+      title: String,
+      done: Boolean,
+      isUpdate: Boolean,
+    }
+
+
     window.vi = Vue.createApp({
       data() {
         return {
+          todoTitle : "",
           todos: [],
         }
       },
-      computed: {},
-      methods: {},
+      computed: {
+        trueTodos(){
+          return this.todos.filter(todo => todo.done === true)
+        },
+        falseTodos(){
+          return this.todos.filter(todo => todo.done === false)
+        }
+      },
+
+      methods: {
+
+        addTodo() {
+          //todoオブジェクトの作成
+          const todo = {
+            id: Math.floor(Math.random * 1000),
+            title: this.todoTitle,
+            done: false,
+            isUpdate: false,
+          }
+          this.todos.push(todo)
+          this.todoTitle = ""
+        },
+
+        changeTodo(todoId){
+          console.log(todoId)
+          const target = this.todos.find(todo => todo.id === todoId)
+          target.done  = !target.done
+        },
+
+        changeTodo2(todoId) {
+          console.log(todoId)
+          const target = this.todos.find(todo => todo.id === todoId)
+          target.done = !target.done
+        },
+
+        clearTodo(todoId){
+          this.todos.find(todo => todo.id === todoId)
+        }
+
+      },
     }).mount('#app')
   </script>
 </body>
