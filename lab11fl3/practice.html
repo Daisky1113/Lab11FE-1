@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<div id="app" class="container pt-6">
+  <!------------------------------------------------------------------------ -->
+  <!-- Q1: マスタッシュ構文 -->
+  <!------------------------------------------------------------------------ -->
+  <div class="columns">
+    <div class="column">
+      <div class="card">
+        <div class="card-content">
+          <h1 class="is-size-2">Q1: マスタッシュ構文</h1>
+          <p class="is-size-5 my-4">マスタッシュ構文を使ってHello Vue.jsと表示してみる</p>
+          <div class="column">
+            <article class="message">
+              <div class="message-header">
+                <p>foo</p>
+              </div>
+              <div class="message-body">
+                bar
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!------------------------------------------------------------------------ -->
+  <!-- Q2: data() & v-for & v-bind -->
+  <!------------------------------------------------------------------------ -->
+  <div class="columns">
+    <div class="column">
+      <div class="card">
+        <div class="card-content">
+          <h1 class="is-size-2">Q2: data() & v-for & v-bind</h1>
+          <p class="is-size-5 my-4">v-forディレクティブを使ってuserの情報をぶん回す</p>
+          <aside class="menu">
+            <ul class="menu-list">
+              <li><a class="is-active">users</a></li>
+              <li><a>Daisky</a></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!------------------------------------------------------------------------ -->
+  <!-- Q3: data() & computed -->
+  <!------------------------------------------------------------------------ -->
+  <div class="columns">
+    <div class="column">
+      <div class="card">
+        <div class="card-content">
+          <h1 class="is-size-2">Q3: data() & computed</h1>
+          <p class="is-size-5 my-4">ブログで公開されているものだけ表示する</p>
+          <table class="table  is-fullwidth is-striped  is-hoverable">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>title</th>
+                <th>like count</th>
+                <th>published</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>1</th>
+                <td>hoge</td>
+                <td>0</td>
+                <td>true</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!------------------------------------------------------------------------ -->
+  <!-- Q4: methods & v-on -->
+  <!------------------------------------------------------------------------ -->
+  <div class="columns">
+    <div class="column">
+      <div class="card">
+        <div class="card-content">
+          <h1 class="is-size-2">Q4: methods & v-on</h1>
+          <p class="is-size-5 my-4">ブログで非公開だけ表示する</p>
+          <p class="is-size-5 my-4">公開ボタンを押したら公開になる</p>
+          <table class="table  is-fullwidth is-striped  is-hoverable">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>title</th>
+                <th>like count</th>
+                <th>publish？</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>1</th>
+                <td>hoge</td>
+                <td>0</td>
+                <td><button class="button is-primary">Publish!</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!------------------------------------------------------------------------ -->
+  <!-- Q5: data() & v-model -->
+  <!------------------------------------------------------------------------ -->
+  <div class="columns">
+    <div class="column">
+      <div class="card">
+        <div class="card-content">
+          <h1 class="is-size-2">Q5: data() & v-model</h1>
+          <p class="is-size-5 my-4">ブログを追加する</p>
+          <div class="control">
+            <p class="is-size-1 mb-4">hogeee</p>
+            <input class="input mb-4" type="text" placeholder="ブログタイトルいれてね">
+            <button class="button ">追加</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script type="module">
+    import { users } from './data/users.js'
+    import { blogs } from './data/blogs.js'
+
+    window.vi = Vue.createApp({
+      data() {
+        return {
+          users,
+          blogs,
+        }
+      },
+      computed: {},
+      methods: {},
+    }).mount('#app')
+  </script>
+</body>
+
+</html>
