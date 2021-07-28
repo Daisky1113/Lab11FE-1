@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<div id="app" class="container pt-6">
+  <!------------------------------------------------------------------------ -->
+  <!-- 作成エリア -->
+  <!------------------------------------------------------------------------ -->
+  <div class="columns">
+    <div class="column">
+      <div class="card">
+        <div class="message-header">
+          <h2>タスクを入力</h2>
+        </div>
+        <div class="card-content">
+          <p>Title : {{ taskTitle }}</p>
+          <input v-model="taskTitle" type="text" class="input is-medium mt-6 mb-4">
+          <button v-on:click="addTask" class="button is-small is-primary mt-2">Create!</button>
+        </div>
+      </div>
+    </div>
+    <!------------------------------------------------------------------------ -->
+    <!-- Todoエリア -->
+    <!------------------------------------------------------------------------ -->
+    <div class="column">
+      <article class="message">
+        <div class="message-header">
+          <p>Todo</p>
+        </div>
+        <div class="message-body">
+          <div class="card my-2">
+            <div v-for="task in plannedTasks" class="card-content">
+              <template v-if="!task.isUpdate">
+                <p class="is-size-3">{{ task.title }}</p>
+                <button v-on:click="changeDone(task.id)" class="button is-small mt-2">done</button>
+                <button v-on:click="updateTask(task.id)" class="button is-small m-2">update</button>
+                <button v-on:click="deleteTask(task.id)" class="button is-small m-2">delete</button>
+              </template>
+              <template v-else>
+                <input  v-model="newTitle" type="text" class="input is-medium">
+                <button v-on:click="changeTitle(task.id)" class="button is-small mt-2">update</button>
+                <button v-on:click="updateTask(task.id)" class="button is-small m-2">cancel</button>
+              </template>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+    <!------------------------------------------------------------------------ -->
+    <!-- Doneエリア -->
+    <!------------------------------------------------------------------------ -->
+    <div class="column">
+      <article class="message is-success">
+        <div class="message-header">
+          <p>Done</p>
+        </div>
+        <div class="message-body">
+          <div class="card my-2">
+            <div v-for="task in doneTasks" class="card-content">
+              <template v-if="!task.isUpdate">
+                <p class="is-size-3">{{ task.title }}</p>
+                <button v-on:click="changeDone(task.id)" class="button is-small mt-2">UnDone</button>
+                <button v-on:click="updateTask(task.id)" class="button is-small m-2">update</button>
+                <button v-on:click="deleteTask(task.id)" class="button is-small m-2">delete</button>
+              </template>
+              <template v-else>
+                <input  v-model="newTitle" type="text" class="input is-medium">
+                <button v-on:click="changeTitle(task.id)" class="button is-small mt-2">update</button>
+                <button v-on:click="updateTask(task.id)" class="button is-small m-2">cancel</button>
+              </template>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</div>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script>
+
+    // todoのデータ型
+    // id: Number
+    // title: String
+    // done: Boolean
+    // isUpdate: Boolean
+
+    window.vi = Vue.createApp({
+      data() {
+        return {
+          tasks: [{
+                id:12,
+                title:'aaa',
+                done:false,
+                isUpdate:false
+                },
+                {
+                id:13,
+                title:'bbb',
+                done:false,
+                isUpdate:false
+                },
+                {
+                id:14,
+                title:'ccc',
+                done:true,
+                isUpdate:false
+                },
+              ],
+          taskTitle:'',
+          newTitle:''
+        }
+      },
+      computed: {
+              doneTasks(){
+                return this.tasks.filter(task => task.done)
+              },
+              plannedTasks(){
+                return this.tasks.filter(task => !task.done)
+              }
+      },
+      methods: {
+            makeTask(taskTitle){
+
+            },
+            addTask(){
+              this.tasks.push({
+                id: Math.floor(Math.random() * 1000),
+                title: this.taskTitle,
+                published: false,
+                likeCount: Math.floor(Math.random() * 1000)
+              })
+              this.clearTaskTitle()
+            },
+            clearTaskTitle(){
+              this.taskTitle = ''
+            },
+            changeDone(taskId){
+              this.tasks.find(task => task.id === taskId).done = !this.tasks.find(task => task.id === taskId).done
+            },
+            deleteTask(taskId){
+              const idx = this.tasks.map((task,i) => task.id === taskId ? i : 0).reduce((a,b) => a + b)
+              this.tasks.splice(idx, 1)
+            },
+            updateTask(taskId){
+              this.tasks.find(task => task.id === taskId).isUpdate = !this.tasks.find(task => task.id === taskId).isUpdate
+            },
+            changeTitle(taskId){ 
+              this.tasks.find(task => task.id === taskId).title = this.newTitle
+              this.updateTask(taskId)
+              this.clearNewTitle()
+            },
+            clearNewTitle(){
+              this.newTitle = ""
+            }
+
+      },
+    }).mount('#app')
+  </script>
+</body>
+
+</html>

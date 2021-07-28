@@ -35,7 +35,7 @@
             <div class="card-content">
               <template v-if="todoTask.isntUpdate">
                 <p class="is-size-3">{{ todoTask.title }}</p>
-                <button class="button is-small mt-2">done</button>
+                <button @click="toggleState(todoTasks.id)" class="button is-small mt-2">done</button>
                 <button class="button is-small m-2">update</button>
                 <button class="button is-small m-2">delete</button>
               </template>
@@ -109,7 +109,7 @@
       methods: {
         createTask() {
           const task = {
-            id: 13,
+            id: Math.floor(Math.random * 1000),
             title: this.taskTitle,
             done: false,
             isntUpdate: true,
@@ -120,6 +120,11 @@
 
         clearTitle() {
           this.taskTitle = ''
+        },
+        toggleState(taskId){
+          console.log(taskId)
+          const targetTask = this.tasks.find(task => task.id === taskID)
+          targetTask.done = !targetTask.done
         }
       },
     }).mount('#app')

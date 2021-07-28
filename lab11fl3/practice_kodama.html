@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<div id="app" class="container pt-6">
+  <!------------------------------------------------------------------------ -->
+  <!-- Q1: マスタッシュ構文 -->
+  <!------------------------------------------------------------------------ -->
+  <div class="columns">
+    <div class="column">
+      <div class="card">
+        <div class="card-content">
+          <h1 class="is-size-2">Q1: マスタッシュ構文</h1>
+          <p class="is-size-5 my-4">マスタッシュ構文を使ってHello Vue.jsと表示してみる</p>
+          <div class="column">
+            <article class="message">
+              <div class="message-header">
+                <p>{{ title }}</p>
+              </div>
+              <div class="message-body">
+                {{ msg }}
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!------------------------------------------------------------------------ -->
+  <!-- Q2: data() & v-for & v-bind -->
+  <!------------------------------------------------------------------------ -->
+  <div class="columns">
+    <div class="column">
+      <div class="card">
+        <div class="card-content">
+          <h1 class="is-size-2">Q2: data() & v-for & v-bind</h1>
+          <p class="is-size-5 my-4">v-forディレクティブを使ってuserの情報をぶん回す</p>
+          <aside class="menu">
+            <ul class="menu-list">
+              <li><a class="is-active">testArray</a></li>
+              <li v-for="el in testArray" :age="el.age"><a>{{ el.name + ' | 趣味：' + el.favorite }} ・・・{{ el.age + 10 }}</a></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!------------------------------------------------------------------------ -->
+  <!-- Q3: data() & computed -->
+  <!------------------------------------------------------------------------ -->
+  <div class="columns">
+    <div class="column">
+      <div class="card">
+        <div class="card-content">
+          <h1 class="is-size-2">Q3: data() & computed</h1>
+          <p class="is-size-5 my-4 message-header">My Published Blogs(ブログで公開されているものだけ表示する)</p>
+          <table class="table  is-fullwidth is-striped  is-hoverable">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>title</th>
+                <th>like count</th>
+                <th>published</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="blog in myPublishedBlogs">
+                <th>{{ blog.id }}</th>
+                <td>{{ blog.title }}</td>
+                <td>{{ blog.likeCount }}</td>
+                <td>{{ blog.published }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="is-size-5 my-4 message-header">My Favorite Books (testArray2で書いた奴らを条件付けで表示)</p>
+          <table class="table  is-fullwidth is-striped  is-hoverable">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>title</th>
+                <th>author</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="book in myFavoriteBooks">
+                <th>{{ book.id }}</th>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!------------------------------------------------------------------------ -->
+  <!-- Q4: methods & v-on -->
+  <!------------------------------------------------------------------------ -->
+  <div class="columns">
+    <div class="column">
+      <div class="card">
+        <div class="card-content">
+          <h1 class="is-size-2">Q4: methods & v-on</h1>
+          <p class="is-size-5 my-4">ブログで非公開だけ表示する</p>
+          <p class="is-size-5 my-4">公開ボタンを押したら公開になる</p>
+          <table class="table  is-fullwidth is-striped  is-hoverable">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>title</th>
+                <th>like count</th>
+                <th>publish？</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="blog in myPrivateBlogs">
+                <th>{{ blog.id }}</th>
+                <td>{{ blog.title }}</td>
+                <td>{{ blog.likeCount }}</td>
+                <td><button class="button is-primary" v-on:click="publish(blog.id)">Publish!</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!------------------------------------------------------------------------ -->
+  <!-- Q5: data() & v-model -->
+  <!------------------------------------------------------------------------ -->
+  <div class="columns">
+    <div class="column">
+      <div class="card">
+        <div class="card-content">
+          <h1 class="is-size-2">Q5: data() & v-model</h1>
+          <p class="is-size-5 my-4">ブログを追加する</p>
+          <div class="control">
+            <p class="is-size-1 mb-4">{{ blogTitle }}</p>
+            <input v-model="blogTitle" class="input mb-4" type="text" placeholder="ブログタイトルいれてね">
+            <button v-on:click="addBlog" class="button ">追加</button>
+          </div>
+          <p class="is-size-5 my-4">favorite bookを追加する</p>
+          <div class="control">
+            <p class="is-size-1 mb-4">{{ bookTitle }}</p>
+            <input v-model="bookTitle" class="input mb-4" type="text" placeholder="ブログタイトルいれてね">
+            <button v-on:click="addBook" class="button ">追加</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script type="module">
+    import { users } from './data/users.js'
+    import { blogs } from './data/blogs.js'
+
+    window.vi = Vue.createApp({
+      data() {
+        return {
+          users,
+          blogs,
+          title: 'Hello Mustache !',
+          msg: 'Hello Vue.js !',
+          testArray:[
+                  {name:'aaa', age:12, favorite:'読書'},
+                  {name:'abc', age:25, favorite:'グルメ'},
+                  {name:'bbb', age:33, favorite:'Sky Diving'}
+                ],
+          testArray2:[
+                  {title:'ccc', author:'cde', id:'10'},
+                  {title:'ddd', author:'def', id:'11'},
+                  {title:'eee', author:'efg', id:'12'},
+                  {title:'fff', author:'hij', id:'13'},
+                  {title:'ggg', author:'klm', id:'14'}
+                ],
+          blogTitle: '',
+          bookTitle: 'asfadfa'
+        }
+      },
+      computed: {
+              myPublishedBlogs(){
+                return this.blogs.filter(blog => blog.published)
+              },
+              myFavoriteBooks(){
+                return this.testArray2.filter(book => book.id > 10)
+              },
+              myPrivateBlogs(){
+                return this.blogs.filter(blog => !blog.published)
+              },
+              currentBlogId(){
+                return this.blogs.length + 1
+              },
+              currentBookId(){
+                return Math.ceil(Math.random() * 500)
+              }
+      },
+      methods: {
+              publish(blogId){
+                this.blogs.find(blog => blog.id === blogId).published = true
+              },
+              addBlog(){
+                this.blogs.push({
+                  id: this.currentBlogId,
+                  title: this.blogTitle,
+                  published: false,
+                  likeCount: Math.floor(Math.random()*1000)
+                })
+                this.clearBlogTitle()
+              },
+
+              clearBlogTitle(){
+                this.blogTitle = ''
+              },
+
+              addBook(){
+                this.testArray2.push({
+                  id:this.currentBookId,
+                  title: this.bookTitle,
+                  author: String.fromCharCode(Math.floor(Math.random()*200, Math.random()*200, Math.random()*200))
+                })
+                this.clearBookTitle()
+              },
+              clearBookTitle(){
+                this.bookTitle = ''
+              }
+
+      },
+    }).mount('#app')
+
+    console.log()
+  </script>
+</body>
+
+</html>
