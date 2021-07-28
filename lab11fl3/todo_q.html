@@ -18,7 +18,7 @@
         <div class="card-content">
           <p>入力</p>
           <input v-model="todoTitle"  type="text" class="input is-medium mt-6 mb-4">
-          <button v-on:click="addTodo()" class="button is-small is-primary mt-2">Create!</button>
+          <button @click="addTodo()" class="button is-small is-primary mt-2">Create!</button>
         </div>
       </div>
     </div>
@@ -33,16 +33,16 @@
         <div class="message-body">
           <div v-for="todo in falseTodos" class="card my-2">
             <div class="card-content">
-              <template v-if="true">
+              <template v-if="todo.isUpdate !== true">
                 <p :id="todo.id" class="is-size-3">{{ todo.title }}</p>
-                <button v-on:click="changeTodo(todo.id)" class="button is-small mt-2">done</button>
-                <button class="button is-small m-2">update</button>
-                <button v-on:click="clearTodo(todo.id)" class="button is-small m-2">delete</button>
+                <button @click="changeTodo(todo.id)" class="button is-small mt-2">done</button>
+                <button @click="updateTodo(todo.id)" class="button is-small m-2">update</button>
+                <button @click="clearTodo(todo.id)" class="button is-small m-2">delete</button>
               </template>
               <template v-else>
-                <input type="text" class="input is-medium">
-                <button class="button is-small mt-2">update</button>
-                <button class="button is-small m-2">cancel</button>
+                <input v-model="todo.title" type="text" class="input is-medium">
+                <button @click="editTitle(todo)" class="button is-small mt-2">update</button>
+                <button @click="cancelEdit(todo)" class="button is-small m-2">cancel</button>
               </template>
             </div>
           </div>
@@ -60,16 +60,16 @@
         <div v-for="todo in trueTodos" class="message-body">
           <div class="card my-2">
             <div class="card-content">
-              <template v-if="true">
-                <p :id="todo.id" class="is-size-3">{{ todo.title }}</p>
-                <button v-on:click="changeTodo(todo.id)" class="button is-small mt-2">UnDone</button>
-                <button class="button is-small m-2">update</button>
-                <button class="button is-small m-2">delete</button>
+              <template v-if="todo.isUpdate !== true">
+                <p class="is-size-3">{{ todo.title }}</p>
+                <button @click="changeTodo(todo.id)" class="button is-small mt-2">UnDone</button>
+                <button @click="updateTodo(todo.id)" class="button is-small m-2">update</button>
+                <button @click="clearTodo(todo.id)" class="button is-small m-2">delete</button>
               </template>
               <template v-else>
-                <input type="text" class="input is-medium">
-                <button class="button is-small mt-2">update</button>
-                <button class="button is-small m-2">cancel</button>
+                <input v-model="todo.title" type="text" class="input is-medium">
+                <button @click="editTitle(todo)"  class="button is-small mt-2">update</button>
+                <button @click="cancelEdit(todo)" class="button is-small m-2">cancel</button>
               </template>
             </div>
           </div>
@@ -100,6 +100,8 @@
     window.vi = Vue.createApp({
       data() {
         return {
+          // editTitle : "",
+          todoID:1,
           todoTitle : "",
           todos: [],
         }
@@ -118,29 +120,39 @@
         addTodo() {
           //todoオブジェクトの作成
           const todo = {
-            id: Math.floor(Math.random * 1000),
+            id: this.todoID,
             title: this.todoTitle,
             done: false,
             isUpdate: false,
           }
           this.todos.push(todo)
           this.todoTitle = ""
+          this.todoID += 1
         },
 
         changeTodo(todoId){
-          console.log(todoId)
           const target = this.todos.find(todo => todo.id === todoId)
           target.done  = !target.done
         },
 
-        changeTodo2(todoId) {
-          console.log(todoId)
+        updateTodo(todoId) {
           const target = this.todos.find(todo => todo.id === todoId)
-          target.done = !target.done
+          target.isUpdate = !target.isUpdate
+        },
+
+        editTitle(obj){
+          todo.title = obj.title
+          const target = this.todos.find(todo => todo.id === obj.id)
+          target.isUpdate = !target.isUpdate
+        },
+
+        cancelEdit(todo){
+          todo.isUpdate = !todo.isUpdate
         },
 
         clearTodo(todoId){
-          this.todos.find(todo => todo.id === todoId)
+          const index = this.todos.findIndex(todo => todo.id === todoId)
+          this.todos.splice(index,1)
         }
 
       },
