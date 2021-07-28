@@ -37,15 +37,15 @@
               <template v-if="todoTask.isntUpdate">
                 <p class="is-size-3">{{ todoTask.title }}</p>
                 <button @click="moveToDone(todoTask.id)" class="button is-small mt-2">done</button>
-                <button class="button is-small m-2">update</button>
-                <button class="button is-small m-2">delete</button>
+                <button @click="updateTask(todoTask.id)" class="button is-small m-2">update</button>
+                <button @click="deleteTask(todoTask.id)" class="button is-small m-2">delete</button>
               </template>
               <template v-else>
-                <input type="text" class="input is-medium">
-                <button class="button is-small mt-2">update</button>
-                <button class="button is-small m-2">cancel</button>
+                <p>{{ updateTitle }}</p>
+                <input v-model="updateTitle" type="text" class="input is-medium">
+                <button @click="completeUpdate(todoTask.id)" class="button is-small mt-2">update</button>
+                <button @click="cancelUpdate(todoTask.id)" class="button is-small m-2">cancel</button>
               </template>
-
             </div>
           </div>
         </div>
@@ -62,16 +62,17 @@
         <div class="message-body">
           <div v-for="doneTask in doneTasks" class="card my-2">
             <div class="card-content">
-              <template v-if="true">
+              <template v-if="doneTask.isntUpdate">
                 <p class="is-size-3">{{ doneTask.title }}</p>
                 <button  @click="moveToUndone(doneTask.id)" class="button is-small mt-2">UnDone</button>
-                <button class="button is-small m-2">update</button>
+                <button @click="updateTask(doneTask.id)" class="button is-small m-2">update</button>
                 <button @click="deleteTask(doneTask.id)" class="button is-small m-2">delete</button>
               </template>
               <template v-else>
-                <input type="text" class="input is-medium">
-                <button class="button is-small mt-2">update</button>
-                <button class="button is-small m-2">cancel</button>
+                <p>{{ updateTitle }}</p>
+                <input v-model="updateTitle" type="text" class="input is-medium" >
+                <button @click="completeUpdate(doneTask.id)" class="button is-small mt-2">update</button>
+                <button @click="cancelUpdate(todoTask.id)" class="button is-small m-2">cancel</button>
               </template>
             </div>
           </div>
@@ -95,6 +96,7 @@
       data() {
         return {
           taskTitle: '',
+          updateTitle: '',
           tasks: [],
         }
       },
@@ -134,7 +136,31 @@
         const deleteid = this.tasks.find(task => task.id === id).id;
         const deleteIndex = this.tasks.indexOf(id);
         this.tasks.splice(deleteIndex, 1);
+        },
+
+        updateTask(id){
+          console.log(id);
+          this.tasks.find(task => task.id === id).isntUpdate = false
+        },
+
+        completeUpdate(id){
+          const updateTask = this.tasks.find(task => task.id === id);
+          const updateid = updateTask.id;
+          const updateIndex = this.tasks.indexOf(id);
+          this.tasks.splice(updateIndex, 1);
+          const task = {
+            id: id,
+            title: this.updateTitle,
+            done: updateTask.done,
+            isntUpdate: true,
+          }
+          this.tasks.push(task)
+        },
+
+        cancelUpdate(id){
+          this.tasks.find(task => task.id === id).isntUpdate = true;
         }
+
       },
     }).mount('#app')
   </script>
