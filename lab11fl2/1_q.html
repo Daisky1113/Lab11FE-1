@@ -21,7 +21,7 @@
     //   blogs: Array,
     // }
 
-    // filterに関する問題　
+    // filterに関する問題
     // filterリンク => https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
 
     // Q1: usersの中からidが6の人のデータを取得する
@@ -35,16 +35,16 @@
     // console.log(id6user)
 
     // Q2: usersの中からidが13より後の人のデータだけ取得する
-      const numOver13 = users.filter(num => num.id > 13);
-      console.log(numOver13);
+      const graterUsers = users.filter(user => user.id > 13)
+      // console.log(graterUsers);
 
     // console.log(graterUsers)
     // const graterUsers = users.filter(user => user.id > 13)
     // console.log(graterUsers)
 
     // Q4: usersの中から名前に『口』（漢字のくち）がつく人のデータだけ取得する
-      const hasWord = users.filter(num => num.name.includes('口'));
-      console.log(hasWord);
+      const kuchiUsers = users.filter(user => user.name.indexOf('口') > -1);
+      console.log(kuchiUsers);
 
     // const kutiUsers = users.filter(user => user.name.indexOf('口') > -1)
     // console.log(kutiUsers)
@@ -62,8 +62,11 @@
     // Q5: usersのデータからmailに.hogeが含まれるデータだけ取得する
 
     // Q6: usersのデータからmailに.fooが含まれないデータだけ取得する
-      const hasMinas = users.filter(num => num.email.indexOf('.foo') == -1);
-      console.log(hasMinas);
+      const notFooUser = users.filter(user => user.email.indexOf('.foo') < 0);
+      // console.log(notFooUser);
+
+    // console.log(notFooUsers)
+
     // Q7: usersのデータにidが7の物があるかないか調べる
 
     // sortに関する問題
@@ -75,13 +78,16 @@
     //   .slice()
     //   .sort((user1, user2) => user1.id > user2.id ? -1 : 1)
 
-    // console.log(descUsers)
+      const upperIdUser = users.sort((user1, user2) => user1.id < user2.id ? -1:1);
+      // console.log(upperIdUser);
     // Q9: usersのデータをidでみて昇順（小さい順）になるように並び替える
 
     // reduceに関する問題
     // reduceリンク => https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
 
-    // Q10: usersのidで最大の物を取得す
+    // Q10: usersのidで最大の物を取得する
+      const maxId = users.sort((user1, user2) => user1.id < user2.id ? -1 : 1).slice(-1);
+      console.log(maxId);
 
     // 昔ながらのやりかた-----
     // let max = 0
