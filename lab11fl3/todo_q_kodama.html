@@ -34,8 +34,8 @@
           <p>Todo</p>
         </div>
         <div class="message-body">
-          <div class="card my-2">
-            <div v-for="task in plannedTasks" class="card-content">
+          <div v-for="task in plannedTasks" class="card my-2">
+            <div class="card-content">
               <template v-if="!task.isUpdate">
                 <p class="is-size-3">{{ task.title }}</p>
                 <button v-on:click="changeDone(task.id)" class="button is-small mt-2">done</button>
@@ -61,8 +61,8 @@
           <p>Done</p>
         </div>
         <div class="message-body">
-          <div class="card my-2">
-            <div v-for="task in doneTasks" class="card-content">
+          <div v-for="task in doneTasks" class="card my-2">
+            <div class="card-content">
               <template v-if="!task.isUpdate">
                 <p class="is-size-3">{{ task.title }}</p>
                 <button v-on:click="changeDone(task.id)" class="button is-small mt-2">UnDone</button>
@@ -134,8 +134,8 @@
               this.tasks.push({
                 id: Math.floor(Math.random() * 1000),
                 title: this.taskTitle,
-                published: false,
-                likeCount: Math.floor(Math.random() * 1000)
+                done: false,
+                isUpdate: false
               })
               this.clearTaskTitle()
             },
@@ -158,7 +158,7 @@
               this.clearNewTitle()
             },
             clearNewTitle(){
-              this.newTitle = ""
+              this.newTitle = ''
             }
 
       },
