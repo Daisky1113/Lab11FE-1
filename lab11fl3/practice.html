@@ -106,7 +106,7 @@
                 <th>{{ blog.id }}</th>
                 <td>{{ blog.title }}</td>
                 <td>{{ blog.likeCount }}</td>
-                <td><button class="button is-primary" v-on:click='publish(blog.id)'>Publish!</button></td>
+                <td><button class="button is-primary" v-on:click='published(blog.id)'>Publish!</button></td>
               </tr>
             </tbody>
           </table>
@@ -126,7 +126,7 @@
           <div class="control">
             <p class="is-size-1 mb-4">{{ blogTitle }}</p>
             <input v-model="blogTitle" class="input mb-4" type="text" placeholder="ブログタイトルいれてね">
-            <button class="button ">追加</button>
+            <button v-on:click="addBlog" class="button ">追加</button>
           </div>
         </div>
       </div>
@@ -165,12 +165,24 @@
 
       },
       methods: {
-        publised(blogId){
-          this.blogs.find(blog => blog.id === blogId).publised = true
+        published(blogId){
+          this.blogs.find(blog => blog.id === blogId).published = true
         },
-        addBlog(){
 
+        addBlog(){
+          this.blogs.push({
+            id: Math.floor(Math.random() * 100),
+            title: this.blogTitle,
+            published: true,
+            likeCount: 888
+          })
+          this.clearBlogTitle()
+        },
+
+        clearBlogTitle(){
+          this.blogTitle = ''
         }
+
       },
     }).mount('#app')
   </script>

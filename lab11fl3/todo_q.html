@@ -16,7 +16,8 @@
     <div class="column">
       <div class="card">
         <div class="card-content">
-          <p>hoge</p>
+          <p>create task</p>
+          <p>{{ taskTitle }}</p>
           <input v-model="taskTitle" type="text" class="input is-medium mt-6 mb-4">
           <button @click="createTask" class="button is-small is-primary mt-2">Create!</button>
         </div>
@@ -35,7 +36,7 @@
             <div class="card-content">
               <template v-if="todoTask.isntUpdate">
                 <p class="is-size-3">{{ todoTask.title }}</p>
-                <button @click="changeDone(todoTask.id)" class="button is-small mt-2">done</button>
+                <button @click="moveToDone(todoTask.id)" class="button is-small mt-2">done</button>
                 <button class="button is-small m-2">update</button>
                 <button class="button is-small m-2">delete</button>
               </template>
@@ -63,9 +64,9 @@
             <div class="card-content">
               <template v-if="true">
                 <p class="is-size-3">{{ doneTask.title }}</p>
-                <button class="button is-small mt-2">UnDone</button>
+                <button  @click="moveToUndone(doneTask.id)" class="button is-small mt-2">UnDone</button>
                 <button class="button is-small m-2">update</button>
-                <button class="button is-small m-2">delete</button>
+                <button @click="deleteTask(doneTask.id)" class="button is-small m-2">delete</button>
               </template>
               <template v-else>
                 <input type="text" class="input is-medium">
@@ -109,7 +110,7 @@
       methods: {
         createTask() {
           const task = {
-            id: 13,
+            id: Math.floor(Math.random() * 100),
             title: this.taskTitle,
             done: false,
             isntUpdate: true,
@@ -117,11 +118,22 @@
           this.tasks.push(task)
           this.clearTitle()
         },
+
         clearTitle() {
           this.taskTitle = ''
         },
-        changeDone(id){
+        moveToDone(id){
           this.tasks.find(task => task.id === id).done = true
+        },
+
+        moveToUndone(id){
+          this.tasks.find(task => task.id === id).done = false
+        },
+
+        deleteTask(id){
+        const deleteid = this.tasks.find(task => task.id === id).id;
+        const deleteIndex = this.tasks.indexOf(id);
+        this.tasks.splice(deleteIndex, 1);
         }
       },
     }).mount('#app')
