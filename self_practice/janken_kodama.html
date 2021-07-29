@@ -88,14 +88,15 @@ window.vi = Vue.createApp({
         isWin(a,b){
             return (b + 3 - a) % 3 === 1 ? [this.MSG_WIN,'orange'] : [this.MSG_LOSE,'blue']
         },
+        //引数 pcHand : 0~2の数字 PCの選択した手        
+        //返値 pcの手の画像の相対参照先
         selectPicture(pcHand){
             return this.hands[pcHand].picture
         }
-
     },
 }).mount('#app')
 
-console.log()
+
 </script>
 </body>
 </html>
