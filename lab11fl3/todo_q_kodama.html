@@ -140,14 +140,17 @@
               this.taskTitle = ''
             },
             changeDone(taskId){
-              this.tasks.find(task => task.id === taskId).done = !this.tasks.find(task => task.id === taskId).done
+              const currentTask = this.tasks.find(task => task.id === taskId)
+              currentTask.done = !currentTask.done
             },
             deleteTask(taskId){
-              const idx = this.tasks.map((task,i) => task.id === taskId ? i : 0).reduce((a,b) => a + b)
+              const idx = this.tasks.findIndex(task => task.id === taskId)
               this.tasks.splice(idx, 1)
             },
             updateTask(taskId){
-              this.tasks.find(task => task.id === taskId).isUpdate = !this.tasks.find(task => task.id === taskId).isUpdate
+              const currentTask = this.tasks.find(task => task.id === taskId)
+              currentTask.isUpdate = !currentTask.isUpdate
+              this.newTitle = currentTask.title
             },
             changeTitle(taskId){ 
               this.tasks.find(task => task.id === taskId).title = this.newTitle

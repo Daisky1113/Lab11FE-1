@@ -44,7 +44,7 @@
           <aside class="menu">
             <ul class="menu-list">
               <li><a class="is-active">testArray</a></li>
-              <li v-for="el in testArray" :age="el.age"><a>{{ el.name + ' | 趣味：' + el.favorite }} ・・・{{ el.age + 10 }}</a></li>
+              <li v-for="el in testArray" v-bind:age="el.age"><a>{{ el.name + ' | 趣味：' + el.favorite }} ・・・{{ el.age + 10 }}</a></li>
             </ul>
           </aside>
         </div>
@@ -205,8 +205,8 @@
               }
       },
       methods: {
-              publish(blogId){
-                this.blogs.find(blog => blog.id === blogId).published = true
+              publish(aaa){
+                this.blogs.find(blog => blog.id === aaa).published = true
               },
               addBlog(){
                 this.blogs.push({
