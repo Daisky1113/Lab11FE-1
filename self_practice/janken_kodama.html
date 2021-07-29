@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/sample.css">
+    <title>Document</title>
+</head>
+<div id="app">
+    <header>
+        <h1>じゃんけん</h1>
+    </header>
+    <main>
+        <ul>
+        <li  v-for="(hand, idx) in hands" :id="hand.id">
+            <img v-bind:src="hand.picture" v-on:click="janken(idx)" alt="">
+        </li>
+        </ul>
+
+        <p class="txt">{{ msg }}</p>
+        <div id="pc_hands" class="aite">
+            <img v-bind:src="resultPicture" alt="">
+        </div>
+        <div id="judgment">結果
+            <p v-bind:style=`color:${result[1]}`>{{ result[0] }}</p>
+        </div>
+    </main>
+    <footer>
+        
+    </footer>
+</div>
+<body>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+
+window.vi = Vue.createApp({
+    data() {
+        return {
+            msg:'コンピュータ',
+            hands:[{
+                id:'gu_btn',
+                picture:'img/g.png'
+            },{
+                id:'cho_btn',
+                picture:'img/c.png'
+            },{
+                id:'pa_btn',
+                picture:'img/p.png'
+            }],
+            MSG_WIN:'勝利',
+            MSG_LOSE:'敗北',
+            MSG_DRAW:'あいこ',
+            result:'',
+            resultPicture:'img/bng.png'
+        }
+    },
+    computed: {
+        // テスト用（computedだと、キャッシュを返すのを確かめるために設置）
+        // selectPcHand(){
+        //     return Math.floor(Math.random()*3)
+        // },
+    },
+    methods: {
+        //じゃんけんの手を選択した時に呼ばれるhandler
+        //引数 idx : v-forのindex
+        //返値 void
+        janken(idx){
+            const [myHand, pcHand] = [idx, this.selectPcHand()]
+            this.resultPicture = this.selectPicture(pcHand)
+            this.result = this.isDraw(myHand, pcHand) ? [this.MSG_DRAW,'lightgreen'] : this.isWin(myHand, pcHand)
+        },
+        //引数 なし
+        //返値 0~2の数字 グー、チョキ、パーに相当
+        selectPcHand(){
+            return Math.floor(Math.random()*3)
+        },
+        //引数 a : 0~2の数字 自分の選択した手
+        //引数 b : 0~2の数字 PCの選択した手        
+        //返値 boolean あいこならtrue
+        isDraw(a,b){
+            return a === b
+        },
+        //引数 a : 0~2の数字 自分の選択した手
+        //引数 b : 0~2の数字 PCの選択した手        
+        //返値 Array(勝利 or 敗北, 文字色) 自分の勝利なら勝利
+        isWin(a,b){
+            return (b + 3 - a) % 3 === 1 ? [this.MSG_WIN,'orange'] : [this.MSG_LOSE,'blue']
+        },
+        selectPicture(pcHand){
+            return this.hands[pcHand].picture
+        }
+
+    },
+}).mount('#app')
+
+console.log()
+</script>
+</body>
+</html>
