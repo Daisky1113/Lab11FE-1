@@ -1,0 +1,1 @@
+export const items = ['ぐー', 'ちょき', 'ぱー'];

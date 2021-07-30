@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <title>Vueじゃじゃんけん</title>
+  </head>
+  <body>
+    <div id="app" class="container">
+      <div class="title">じゃじゃんけん！</div>
+      <div class="wrap">
+        <div class="main">
+          <div class="result">
+            <p class="result">結果：{{ result }}</p>
+          </div>
+          <div class="display">
+            <div class="random-item">
+              {{ items[randomNum] }}
+            </div>
+          </div>
+          <div class="select-area">
+            <button @click="selectedGuResult" class="btn-floating pulse teal accent-3">ぐー</button>
+            <button @click="selectedChResult" class="btn-floating pulse blue accent-2">ちょき</button>
+            <button @click="selectedPaResult" class="btn-floating pulse red accent-2">ぱー</button>
+          </div>
+          <button @click="resetAll" class="waves-effect waves-light btn deep-orange lighten-2">再トライ！</button>
+        </div>
+      </div>
+    </div>
+
+    <style>
+        .title{
+            font-size: 20px;
+            font-weight: bold;
+            padding: 2vw;
+        }
+
+        .wrap{
+            padding: 2vw;
+        }
+
+        .result{
+            font-size: 16px;
+        }
+
+        .random-item{
+            font-size: 30px;
+            padding: 2vw;
+        }
+
+        .btn-floating{
+            margin: 1vw;
+        }
+
+        .btn{
+            margin: 1vw;
+        }
+    </style>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script type="module">
+      import { items } from "./data/items.js";
+
+      window.vi = Vue.createApp({
+        data() {
+          return {
+
+            // コンピュータの手を格納
+            randomNum: "",
+            // じゃんけん勝敗を格納
+            result: "",
+            // ぐー、ちょき、ぱーの配列
+            items: items,
+          };
+        },
+        computed: {},
+        methods: {
+
+          // 返り値：ぐーボタンを選択したときの結果
+          selectedGuResult() {
+            this.randomNum = Math.floor(Math.random() * 3);
+            const selectedItem = this.items[this.randomNum];
+            if (selectedItem === "gu") {
+              this.result = "引き分け";
+            } else if (selectedItem === "ch") {
+              this.result = "勝ち";
+            } else {
+              this.result = "負け";
+            }
+            console.log(this.items[this.randomNum]);
+            console.log(this.result);
+          },
+
+          // 返り値：ちょきボタンを選択したときの結果
+          selectedChResult() {
+            this.randomNum = Math.floor(Math.random() * 3);
+            const selectedItem = this.items[this.randomNum];
+            if (selectedItem === "gu") {
+              this.result = "負け";
+            } else if (selectedItem === "ch") {
+              this.result = "引き分け";
+            } else {
+              this.result = "勝ち";
+            }
+            console.log(this.items[this.randomNum]);
+            console.log(this.result);
+          },
+
+          // 返り値：ぱーボタンを選択したときの結果
+          selectedPaResult() {
+            this.randomNum = Math.floor(Math.random() * 3);
+            const selectedItem = this.items[this.randomNum];
+            if (selectedItem === "gu") {
+              this.result = "勝ち";
+            } else if (selectedItem === "ch") {
+              this.result = "負け";
+            } else {
+              this.result = "引き分け";
+            }
+            console.log(this.items[this.randomNum]);
+            console.log(this.result);
+          },
+
+          // 返り値：コンピュータの手とじゃんけん勝敗を初期化
+          resetAll(){
+              this.randomNum = '';
+              this.result = '';
+          }
+
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
