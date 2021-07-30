@@ -67,7 +67,7 @@ window.vi = Vue.createApp({
         //引数 idx : v-forのindex
         //返値 void
         janken(idx){
-            const [myHand, pcHand] = [idx, this.selectPcHand()]
+            const [myHand, pcHand] = [idx, this.selectPcHand]
             this.resultPicture = this.selectPicture(pcHand)
             this.result = this.isDraw(myHand, pcHand) ? [this.MSG_DRAW,'lightgreen'] : this.isWin(myHand, pcHand)
         },
