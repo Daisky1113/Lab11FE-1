@@ -47,7 +47,7 @@
 window.vi = Vue.createApp({
     data() {
         return {
-            key:'memopad',
+            key:'memopad_kodama',
             docTitle:'MemoPad',
             btns:[{
                 id:'save_btn',
@@ -75,7 +75,7 @@ window.vi = Vue.createApp({
         // 返値なし
         saveMemo(){
             this.memos.push({
-                id:this.memos.length+1,
+                id:this.memos.length,
                 title:this.title,
                 txt:this.txt
             })
@@ -97,7 +97,8 @@ window.vi = Vue.createApp({
         }
     },
     mounted() {
-            this.memos = JSON.parse(localStorage.getItem(this.key))
+        const data = JSON.parse(localStorage.getItem(this.key))
+        this.memos = data ? data : []
     }
 }).mount('#app')
 
