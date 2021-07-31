@@ -40,6 +40,24 @@
       </div>
     </div>
 
+    <!-- Firebaseの設定 -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase.js"></script>
+
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyCmgBq2QMRftNJqmXP2qWQ6MpT-MpboBEY",
+        authDomain: "vue-memo-app-fae43.firebaseapp.com",
+        projectId: "vue-memo-app-fae43",
+        storageBucket: "vue-memo-app-fae43.appspot.com",
+        messagingSenderId: "936166349205",
+        appId: "1:936166349205:web:8a70c54b87dbadf6ea7e9c",
+      };
+      firebase.initializeApp(firebaseConfig);
+
+      let db = firebase.firestore();
+    </script>
+    <!-- Firebaseの設定 終わり-->
+
     <script src="https://unpkg.com/vue@next"></script>
     <script type="module">
       window.vi = Vue.createApp({
@@ -51,8 +69,14 @@
           };
         },
         created: function () {
-          const memoArray = JSON.parse(localStorage.getItem("key"));
-          this.memos = memoArray ?? [];
+          db.collection("memos").onSnapshot((querySnapshot) => {
+            querySnapshot.docChanges().forEach((change) => {
+              if (change.type === "added") {
+                this.memos.push(Object.assign(change.doc.data()));
+                console.log(Object.assign(change.doc.data()));
+              }
+            });
+          });
         },
         methods: {
           // @param: なし
@@ -64,8 +88,7 @@
               text: this.newMemo,
               isNotUpdate: true,
             };
-            this.memos.push(memo);
-            this.stockLocalStorage();
+            db.collection("memos").add(memo);
             this.newMemo = "";
           },
 
@@ -92,7 +115,6 @@
               isNotUpdate: true,
             };
             this.memos.splice(index, 1, memo);
-            this.stockLocalStorage();
             this.updateText = "";
           },
 
@@ -102,15 +124,6 @@
           deleteMemo(id) {
             const index = this.memos.findIndex((memo) => memo.id == id);
             this.memos.splice(index, 1);
-            this.stockLocalStorage();
-          },
-
-          // @param: なし
-          // @return: なし
-          //配列memosをJSONに変換してローカルストレージへ保存
-          stockLocalStorage() {
-            const jsonMemoArray = JSON.stringify(this.memos);
-            localStorage.setItem("key", jsonMemoArray);
           },
         },
       }).mount("#app");
