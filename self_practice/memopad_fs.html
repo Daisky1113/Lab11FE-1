@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/sample2.css">
+    <title>Document</title>
+</head>
+<div id="app">
+    <header>
+    <h1>{{ docTitle }}</h1>
+    </header>
+    <main>
+        <input type="text" id="key" v-model="title">
+        <textarea id="memo" v-model="txt"></textarea>
+        <ul>
+            <li v-bind:id="btn.id" v-for="(btn,i) in btns" v-on:click="clickHandler(i)">{{ btn.name }}</li>
+        </ul>
+    </main>
+    <table id="list">
+        <thead>
+            <tr>
+                <th colspan="4">The table header</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(memo, idx) in showMemos">
+                <td style="width:0%">{{ showIds[idx] }}</td>
+                <td>{{ memo.title }}</td>
+                <td>{{ memo.txt }}</td>
+                <td style="width:0%"><button v-on:click="hideMemo(memo.id, idx)">×</button></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>{{ title }}</td>
+                <td>{{ txt }}</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <footer>
+        
+    </footer>
+</div>
+<body>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+// Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: "AIzaSyApIYJ-VOv5OIIgCorF5OrJngewgn85LQU",
+    authDomain: "gslab11-aa564.firebaseapp.com",
+    databaseURL: "https://gslab11-aa564-default-rtdb.firebaseio.com",
+    projectId: "gslab11-aa564",
+    storageBucket: "gslab11-aa564.appspot.com",
+    messagingSenderId: "209017578737",
+    appId: "1:209017578737:web:52d13f0f23763807a57550"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+
+</script>
+
+<!-- ここからvue.jsの記述 -->
+
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+
+window.vi = Vue.createApp({
+    data() {
+        return {
+            key:'memopad_kodama',
+            docTitle:'MemoPad for FireStore',
+            btns:[{
+                id:'save_btn',
+                name:'Save'
+            },{
+                id:'clear_btn',
+                name:'All Clear'
+            }],
+            memos:[],
+            ids:[],
+            title:'',
+            txt:''
+        }
+    },
+    computed: {
+        showMemos(){
+            return this.memos.filter(memo => memo.indicate).sort()
+        },
+        // 表示させるMemoの要素と同じindexをもつIDを呼び出し
+        showIds(){
+            return this.memos.map((memo,i) => memo.indicate ? this.ids[i] : false).filter(id => id).sort()
+        }
+    },
+    methods: {
+        //Save,Clear`のボタンをclickした時に動作
+        //引数 idx : save, clearボタンのv-forのindex
+        //返値 void
+        clickHandler(idx){
+            idx === 0 ? this.saveMemo() : this.clearMemo()
+        },
+        // v-modelで書いてる内容をmemos,FireStoreに保存
+        // 引数なし
+        // 返値なし
+        saveMemo(){
+            const id = ('000' + this.memos.length).slice(-3)
+            const memo = {
+                id: id,
+                title: this.title,
+                txt: this.txt,
+                indicate: true
+            }
+            
+            this.memos.push(memo)
+            this.ids.push('id_' + id)
+
+// FireStoreにデータを保存（オブジェクト毎）
+            db.collection(this.key).doc('id_' + id).set(memo)
+            .then((docRef) => {
+                console.log("Document written with ID: ", memo.id);
+            })
+            .catch((error) => {
+                console.error("Error adding document: ", error);
+            });
+            this.clearInput()
+        },
+        
+        // 全メモをmemos配列とfirestoreから消去
+        // 引数なし
+        // 返値なし
+        clearMemo(){
+            for(let i=0;i<this.memos.length;i++){
+                const id = 'id_' + ('000' + i).slice(-3)
+
+                // 全部消す
+                db.collection(this.key).doc(id).delete().then(() => {
+                    console.log('Document successfully deketed!')
+                }).catch((error) => {
+                    console.error('Error removing document')
+                })
+            }
+
+            this.memos = []
+            this.clearInput()
+        },
+        clearInput(){
+            this.title = '',
+            this.txt =  ''
+        },
+
+        hideMemo(memoId, idx){
+            this.memos.find(memo => memo.id === memoId).indicate = false
+
+            db.collection(this.key).doc('id_'+memoId).update({
+                indicate: false
+            }).then(() => {
+                console.log('ID : ' + memoId + ' has been hidden')
+            }).catch((error) => {
+                console.log('error')
+            })
+        }
+    },
+
+// firestoreからデータ読み込み
+// コレクションと同時に、ドキュメントのIDもとってきてる
+    mounted() {
+        db.collection(this.key).get().then((snapshot)=>{
+            snapshot.forEach((doc,i) => {
+                this.memos.push(doc.data())
+                this.ids.push(doc.id)
+            })
+        })
+    }
+}).mount('#app')
+
+</script>
+</body>
+</html>
