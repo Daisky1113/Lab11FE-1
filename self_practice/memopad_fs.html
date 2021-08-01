@@ -143,7 +143,7 @@ window.vi = Vue.createApp({
 
                 // 全部消す
                 db.collection(this.key).doc(id).delete().then(() => {
-                    console.log('Document successfully deketed!')
+                    console.log('Document successfully deleted!')
                 }).catch((error) => {
                     console.error('Error removing document')
                 })

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/destyle.css">
+    <link rel="stylesheet" href="css/sample2.css">
+    <title>Document</title>
+</head>
+<div id="app">
+<header>
+    <h1>{{ title }}</h1>
+</header>
+<main>
+    <div v-for="(msg,idx) in showMsgs" class="ul">
+        <p style="margin-top:4px;white-space: pre-wrap;font-size:12px">
+            <span style="font-size:12px"> {{ msg.name }} :</span> {{ msg.txt }}
+        </p>
+        <p style="font-size:8px;text-align:right;">
+            {{ msg.time.toDate().toISOString().split('.')[0] }}
+            <span v-on:click="removeMsg(msg.id, idx)" style="font-size: 10px;cursor:pointer">❎</span>
+        </p>
+            <!-- <button style="transform:translate(20%, -100%);height:0%;width:15px;">×</button> -->
+        </p>
+    </div>
+    <div class="ul">
+        <p style="margin-top:8px;">
+            <span style="font-size:12px"> {{ myName }} :</span> {{ myTxt }}
+        </p>
+        <p style="font-size:8px;text-align:right;">{{}}</p>
+    </div>
+    <input v-model="myName" type="text" placeholder="your name">
+    <textarea v-model="myTxt" name="" id="" cols="30" rows="10"></textarea>
+
+    <div>
+        <button v-on:click="saveMsgs">送信</button>
+    </div>
+</main>
+<footer>
+    <p style="text-align: right; margin-right:10px;font-size:12px">Next Theme is ... ? </p>
+</footer>
+
+
+</div>
+
+
+<body>
+    
+<!-- ---------------------------------firebase--------------------------------- -->
+<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase.js"></script>
+<script>
+var firebaseConfig = {
+    apiKey: "AIzaSyApIYJ-VOv5OIIgCorF5OrJngewgn85LQU",
+    authDomain: "gslab11-aa564.firebaseapp.com",
+    databaseURL: "https://gslab11-aa564-default-rtdb.firebaseio.com",
+    projectId: "gslab11-aa564",
+    storageBucket: "gslab11-aa564.appspot.com",
+    messagingSenderId: "209017578737",
+    appId: "1:209017578737:web:52d13f0f23763807a57550"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+</script>
+<!-- ---------------------------------firebase--------------------------------- -->
+
+
+<!-- ---------------------------------Vue.js--------------------------------- -->
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+window.vi = Vue.createApp({
+    data() {
+        return {
+            key:'chat_kodama',
+            title:'chat',
+            msgs:[],
+            myName:'',
+            myTxt:''
+        }
+    },
+    computed: {
+        showMsgs(){
+            return this.msgs.filter(msg => msg.id)
+        }
+    },
+    methods: {
+        // v-modelで書いてる内容をFireStoreに保存
+        // 引数なし
+        // 返値なし
+        saveMsgs(){
+            const msg = {
+                id: null,
+                name: this.myName,
+                txt: this.myTxt,
+                time: firebase.firestore.Timestamp.now()
+            }
+            // FireStoreにデータを保存（オブジェクト毎）
+            db.collection(this.key).add(msg)
+            .then((docRef) => {
+                db.collection(this.key).doc(docRef.id).update({id:docRef.id})
+                console.log("Document written with ID: ", docRef.id);
+            })
+            .catch((error) => {
+                console.error("Error adding document: ", error);
+            });
+            this.clearInput()
+        },
+        // 引数なし 
+        // 返値 void
+        clearInput(){
+            this.myTxt = ''
+        },
+        // 引数 msgId : msgsのある要素のidプロパティ
+        // 返値 void
+        removeMsg(msgId){
+            db.collection(this.key).doc(msgId).delete()
+        }
+    },
+    // firestoreからリアルタイムにデータを呼び出し
+    mounted() {
+        db.collection(this.key)
+        .orderBy('time','asc')
+        .onSnapshot((querySnapshot)=>{
+            querySnapshot.docChanges().forEach((change)=>{
+                if(change.type == 'added' || change.type == 'modified'){
+                    this.msgs.push(change.doc.data())
+                }else if(change.type == 'removed'){
+                    const idx = this.msgs.findIndex(msg => msg.id === change.doc.data().id)
+                    this.msgs.splice(idx,1)
+                }
+            })
+        })
+    }
+}).mount('#app')
+</script>
+<!-- ---------------------------------Vue.js--------------------------------- -->
+</body>
+</html>
