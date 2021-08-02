@@ -21,9 +21,9 @@
             <p>◆メモ一覧</p>
             <div v-for="memo in memos" class="show-area">
               <ul>
-                <template v-if="memo.isNotUpdate">
+                <template v-if="memo.data().isNotUpdate">
                   <li class="list-item">
-                    {{ memo.text }}
+                    {{ memo.data().text }}
                     <button @click="changeBool(memo.id)">edit</button>
                     <button @click="deleteMemo(memo.id)">delete</button>
                   </li>
@@ -69,14 +69,22 @@
           };
         },
         created: function () {
-          db.collection("memos").onSnapshot((querySnapshot) => {
-            querySnapshot.docChanges().forEach((change) => {
-              if (change.type === "added") {
-                this.memos.push(Object.assign(change.doc.data()));
-                console.log(Object.assign(change.doc.data()));
-              }
+          // @param: なし
+          // @return: なし
+          //firestoreに格納されたデータを保存。
+          //onSnapshotとdocChanges(), change.type=addedの取得でリアルタイム更新。
+          db.collection("memos")
+            .orderBy("created_at", "desc")
+            .onSnapshot((querySnapshot) => {
+              querySnapshot.docChanges().forEach((change) => {
+                if (change.type === "added") {
+                  //changeには配列が格納されているのでオブジェクトに直す。
+                  //firestoreに配列は保存できない。
+                  this.memos.push(Object.assign(change.doc));
+                  console.log(Object.assign(change.doc.data()));
+                }
+              });
             });
-          });
         },
         methods: {
           // @param: なし
@@ -87,7 +95,9 @@
               id: Math.floor(Math.random() * 100),
               text: this.newMemo,
               isNotUpdate: true,
+              created_at: firebase.firestore.FieldValue.serverTimestamp(),
             };
+            //memoオブジェクトをfirestoreに保存
             db.collection("memos").add(memo);
             this.newMemo = "";
           },
@@ -96,12 +106,9 @@
           // @return: なし
           //isNotUpdateの真偽値を操作（初期値：true）
           changeBool(id) {
-            let boolState = this.memos.find(
-              (memo) => memo.id === id
-            ).isNotUpdate;
-            boolState == true
-              ? (this.memos.find((memo) => memo.id === id).isNotUpdate = false)
-              : (this.memos.find((memo) => memo.id === id).isNotUpdate = true);
+            db.collection("memos").doc(id).update({
+              isNotUpdate: false,
+            });
           },
 
           // @param: memo.id
@@ -109,21 +116,19 @@
           //editで編集したテキストをmemosに保存
           updateMemo(id) {
             const index = this.memos.findIndex((memo) => memo.id == id);
-            const memo = {
-              id: id,
+            db.collection("memos").doc(id).update({
               text: this.updateText,
               isNotUpdate: true,
-            };
-            this.memos.splice(index, 1, memo);
+            });
+            // this.memos.splice(index, 1, memo);
             this.updateText = "";
           },
 
-          // @param: memo.id
+          // @param: memo.id（firestoreのドキュメントid）
           // @return: なし
-          //メモの削除
+          //メモをfirestore上から削除
           deleteMemo(id) {
-            const index = this.memos.findIndex((memo) => memo.id == id);
-            this.memos.splice(index, 1);
+            db.collection("memos").doc(id).delete();
           },
         },
       }).mount("#app");
